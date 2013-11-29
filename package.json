@@ -1,0 +1,13 @@
+{
+  "name": "basic-auth",
+  "version": "0.0.1",
+  "repository": "visionmedia/node-basic-auth",
+  "description": "generic basic auth parser",
+  "keywords": ["basic", "auth", "authorization", "basicauth"],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "license": "MIT"
+}
