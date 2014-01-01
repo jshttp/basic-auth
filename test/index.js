@@ -1,4 +1,3 @@
-
 var assert = require('assert');
 var auth = require('..');
 
@@ -26,7 +25,7 @@ describe('auth(req)', function(){
   })
 
   describe('with malformed credentials', function(){
-    it('should return nulll', function(){
+    it('should return null', function(){
       var req = request('basic Zm9vcgo=');
       assert(null == auth(req));
     })
