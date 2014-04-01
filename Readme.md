@@ -1,5 +1,4 @@
-
-# name
+# basic-auth
 
   Generic basic auth Authorization header field parser for whatever.
 
