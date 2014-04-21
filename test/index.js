@@ -37,4 +37,11 @@ describe('auth(req)', function(){
       auth(req).should.eql({ name: 'foo', pass: 'bar' });
     })
   })
+
+  describe('with empty password', function(){
+    it('should return .user and .pass', function(){
+      var req = request('basic Zm9vOg==');
+      auth(req).should.eql({ name: 'foo', pass: ''});
+    })
+  })
 })
