@@ -21,7 +21,7 @@ module.exports = function(req){
 
   // credentials
   auth = new Buffer(auth, 'base64').toString();
-  auth = auth.match(/^([^:]+):(.+)$/);
+  auth = auth.match(/^([^:]+):(.*)$/);
   if (!auth) return;
 
   return { name: auth[1], pass: auth[2] };
