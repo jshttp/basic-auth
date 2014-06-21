@@ -26,3 +26,11 @@ module.exports = function(req){
 
   return { name: auth[1], pass: auth[2] };
 };
+
+module.exports.header = function(name, pass){
+  var seperator = pass ? ':' : '';
+
+  pass = pass || '';
+
+  return 'Basic ' + new Buffer(name + seperator + pass).toString('base64');
+};

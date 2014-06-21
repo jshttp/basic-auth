@@ -19,6 +19,8 @@ var auth = require('basic-auth');
 var user = auth(req);
 // => { name: 'something', pass: 'whatever' }
 
+var header = auth.header('user', 'pass');
+// => 'Basic akhhaslkdhlhf=='
 ```
 
 # License
