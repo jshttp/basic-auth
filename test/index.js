@@ -44,4 +44,18 @@ describe('auth(req)', function(){
       auth(req).should.eql({ name: 'foo', pass: ''});
     })
   })
+
+  describe('with empty userid', function(){
+    it('should return .user and .pass', function(){
+      var req = request('basic ' + new Buffer(':pass').toString('base64'));
+      auth(req).should.eql({ name: '', pass: 'pass'});
+    })
+  })
+
+  describe('with empty userid and pass', function(){
+    it('should return .user and .pass', function(){
+      var req = request('basic ' + new Buffer(':').toString('base64'));
+      auth(req).should.eql({ name: '', pass: ''});
+    })
+  })
 })
