@@ -24,13 +24,6 @@ describe('auth(req)', function(){
     })
   })
 
-  describe('with malformed credentials', function(){
-    it('should return null', function(){
-      var req = request('basic Zm9vcgo=');
-      assert(null == auth(req));
-    })
-  })
-
   describe('with valid credentials', function(){
     it('should return .user and .pass', function(){
       var req = request('basic Zm9vOmJhcg==');
