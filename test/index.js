@@ -31,6 +31,13 @@ describe('auth(req)', function(){
     })
   })
 
+  describe('with userid only', function(){
+    it('should return .user', function(){
+      var req = request('basic ' + new Buffer('foo').toString('base64'));
+      auth(req).should.eql({ name: 'foo', pass: '' });
+    })
+  })
+
   describe('with empty password', function(){
     it('should return .user and .pass', function(){
       var req = request('basic Zm9vOg==');
