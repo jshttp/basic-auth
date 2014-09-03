@@ -58,4 +58,11 @@ describe('auth(req)', function(){
       auth(req).should.eql({ name: '', pass: ''});
     })
   })
+
+  describe('with colon in pass', function(){
+    it('should return .user and .pass', function(){
+      var req = request('basic ' + new Buffer('foo:pass:word').toString('base64'));
+      auth(req).should.eql({ name: 'foo', pass: 'pass:word'});
+    })
+  })
 })
