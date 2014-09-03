@@ -24,6 +24,13 @@ describe('auth(req)', function(){
     })
   })
 
+  describe('with malformed Authorization scheme', function(){
+    it('should return null', function(){
+      var req = request('basic_Zm9vOmJhcg==');
+      assert(null == auth(req));
+    })
+  })
+
   describe('with malformed credentials', function(){
     it('should return null', function(){
       var req = request('basic Zm9vcgo=');
