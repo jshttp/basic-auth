@@ -12,6 +12,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "test": "mocha --check-leaks --reporter spec --bail"
+    "test": "mocha --check-leaks --reporter spec --bail",
+    "test-travis": "mocha --check-leaks --reporter spec"
   }
 }
