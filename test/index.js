@@ -75,7 +75,7 @@ describe('auth(req)', function(){
   })
 
   describe('with colon in pass', function(){
-    it('should return .user and .pass', function(){
+    it('should return .name and .pass', function(){
       var req = request('basic ' + new Buffer('foo:pass:word').toString('base64'));
       var creds = auth(req);
       assert.equal(creds.name, 'foo');
