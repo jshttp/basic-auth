@@ -5,8 +5,7 @@
   "description": "generic basic auth parser",
   "keywords": ["basic", "auth", "authorization", "basicauth"],
   "devDependencies": {
-    "mocha": "*",
-    "should": "*"
+    "mocha": "*"
   },
   "scripts": {
     "test": "make test"

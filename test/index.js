@@ -41,35 +41,45 @@ describe('auth(req)', function(){
   describe('with valid credentials', function(){
     it('should return .name and .pass', function(){
       var req = request('basic Zm9vOmJhcg==');
-      auth(req).should.eql({ name: 'foo', pass: 'bar' });
+      var creds = auth(req);
+      assert.equal(creds.name, 'foo');
+      assert.equal(creds.pass, 'bar');
     })
   })
 
   describe('with empty password', function(){
     it('should return .name and .pass', function(){
       var req = request('basic Zm9vOg==');
-      auth(req).should.eql({ name: 'foo', pass: ''});
+      var creds = auth(req);
+      assert.equal(creds.name, 'foo');
+      assert.equal(creds.pass, '');
     })
   })
 
   describe('with empty userid', function(){
     it('should return .name and .pass', function(){
       var req = request('basic ' + new Buffer(':pass').toString('base64'));
-      auth(req).should.eql({ name: '', pass: 'pass'});
+      var creds = auth(req);
+      assert.equal(creds.name, '');
+      assert.equal(creds.pass, 'pass');
     })
   })
 
   describe('with empty userid and pass', function(){
     it('should return .name and .pass', function(){
       var req = request('basic ' + new Buffer(':').toString('base64'));
-      auth(req).should.eql({ name: '', pass: ''});
+      var creds = auth(req);
+      assert.equal(creds.name, '');
+      assert.equal(creds.pass, '');
     })
   })
 
   describe('with colon in pass', function(){
     it('should return .user and .pass', function(){
       var req = request('basic ' + new Buffer('foo:pass:word').toString('base64'));
-      auth(req).should.eql({ name: 'foo', pass: 'pass:word'});
+      var creds = auth(req);
+      assert.equal(creds.name, 'foo');
+      assert.equal(creds.pass, 'pass:word');
     })
   })
 })
