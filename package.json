@@ -7,11 +7,11 @@
   "devDependencies": {
     "mocha": "*"
   },
-  "scripts": {
-    "test": "make test"
-  },
   "files": [
     "index.js"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha --check-leaks --reporter spec --bail"
+  }
 }
