@@ -8,6 +8,7 @@
     "mocha": "*"
   },
   "files": [
+    "HISTORY.md",
     "index.js"
   ],
   "license": "MIT",
