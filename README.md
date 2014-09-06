@@ -47,4 +47,4 @@ server.listen(3000)
 
 # License
 
-  MIT
+[MIT](LICENSE)
