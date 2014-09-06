@@ -1,18 +1,26 @@
 {
   "name": "basic-auth",
+  "description": "node.js basic auth parser",
   "version": "1.0.0",
-  "repository": "visionmedia/node-basic-auth",
-  "description": "generic basic auth parser",
-  "keywords": ["basic", "auth", "authorization", "basicauth"],
+  "license": "MIT",
+  "keywords": [
+    "basic",
+    "auth",
+    "authorization",
+    "basicauth"
+  ],
+  "repository": "jshttp/basic-auth",
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "1"
   },
   "files": [
     "HISTORY.md",
     "LICENSE",
     "index.js"
   ],
-  "license": "MIT",
+  "engines": {
+    "node": ">= 0.8"
+  },
   "scripts": {
     "test": "mocha --check-leaks --reporter spec --bail",
     "test-travis": "mocha --check-leaks --reporter spec"
