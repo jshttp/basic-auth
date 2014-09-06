@@ -1,6 +1,12 @@
 # basic-auth
 
-  Generic basic auth Authorization header field parser for whatever.
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Node.js Version][node-version-image]][node-version-url]
+[![Build Status][travis-image]][travis-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
+
+Generic basic auth Authorization header field parser for whatever.
 
 ## Installation
 
@@ -48,3 +54,14 @@ server.listen(3000)
 # License
 
 [MIT](LICENSE)
+
+[npm-image]: https://img.shields.io/npm/v/basic-auth.svg?style=flat
+[npm-url]: https://npmjs.org/package/basic-auth
+[node-version-image]: https://img.shields.io/badge/node.js-%3E%3D_0.8-brightgreen.svg?style=flat
+[node-version-url]: http://nodejs.org/download/
+[travis-image]: https://img.shields.io/travis/jshttp/basic-auth.svg?style=flat
+[travis-url]: https://travis-ci.org/jshttp/basic-auth
+[coveralls-image]: https://img.shields.io/coveralls/jshttp/basic-auth.svg?style=flat
+[coveralls-url]: https://coveralls.io/r/jshttp/basic-auth?branch=master
+[downloads-image]: https://img.shields.io/npm/dm/basic-auth.svg?style=flat
+[downloads-url]: https://npmjs.org/package/basic-auth
