@@ -12,7 +12,7 @@
   "repository": "jshttp/basic-auth",
   "devDependencies": {
     "istanbul": "0.3.2",
-    "mocha": "1"
+    "mocha": "~2.2.4"
   },
   "files": [
     "HISTORY.md",
