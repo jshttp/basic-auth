@@ -1,10 +1,16 @@
+/*!
+ * morgan
+ * Copyright(c) 2013 TJ Holowaychuk
+ * Copyright(c) 2014 Jonathan Ong
+ * MIT Licensed
+ */
 
 /**
  * Parse the Authorization header field of `req`.
  *
- * @param {Request} req
- * @return {Object} with .name and .pass
- * @api public
+ * @param {object} req
+ * @return {object} with .name and .pass
+ * @public
  */
 
 module.exports = function(req){
