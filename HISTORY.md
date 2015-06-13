@@ -4,6 +4,7 @@ unreleased
   * perf: enable strict mode
   * perf: hoist regular expression
   * perf: parse with regular expressions
+  * perf: remove argument reassignment
 
 1.0.1 / 2015-05-04
 ==================

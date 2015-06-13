@@ -46,7 +46,8 @@ var userPassRegExp = /^([^:]*):(.*)$/
  */
 
 function auth(req) {
-  req = req.req || req;
+  // get header
+  var header = (req.req || req).headers.authorization
 
   // parse header
   var header = req.headers.authorization
