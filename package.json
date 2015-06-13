@@ -20,7 +20,7 @@
     "index.js"
   ],
   "engines": {
-    "node": ">= 0.8"
+    "node": ">= 0.6"
   },
   "scripts": {
     "test": "mocha --check-leaks --reporter spec --bail",
