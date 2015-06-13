@@ -6,14 +6,21 @@
  */
 
 /**
- * Parse the Authorization header field of `req`.
+ * Module exports.
+ * @public
+ */
+
+module.exports = auth
+
+/**
+ * Parse the Authorization header field of a request.
  *
  * @param {object} req
  * @return {object} with .name and .pass
  * @public
  */
 
-module.exports = function(req){
+function auth(req) {
   req = req.req || req;
 
   var auth = req.headers.authorization;
@@ -31,4 +38,4 @@ module.exports = function(req){
   if (!auth) return;
 
   return { name: auth[1], pass: auth[2] };
-};
+}
