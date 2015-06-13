@@ -14,6 +14,18 @@ Generic basic auth Authorization header field parser for whatever.
 $ npm install basic-auth
 ```
 
+## API
+
+```js
+var auth = require('basic-auth')
+```
+
+### auth(req)
+
+Get the basic auth credentials from the given request. The `Authorization`
+header is parsed and if the header is invalid, `undefined` is returned,
+otherwise an object with `name` and `pass` properties.
+
 ## Example
 
 Pass a node request or koa Context object to the module exported. If
