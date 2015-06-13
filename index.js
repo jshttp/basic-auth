@@ -13,6 +13,12 @@
 module.exports = auth
 
 /**
+ * RegExp for basic auth user/pass
+ */
+
+var userPassRegExp = /^([^:]*):(.*)$/
+
+/**
  * Parse the Authorization header field of a request.
  *
  * @param {object} req
@@ -34,7 +40,7 @@ function auth(req) {
 
   // credentials
   auth = new Buffer(auth, 'base64').toString();
-  auth = auth.match(/^([^:]*):(.*)$/);
+  auth = auth.match(userPassRegExp)
   if (!auth) return;
 
   return { name: auth[1], pass: auth[2] };
