@@ -1,5 +1,5 @@
-unreleased
-==========
+1.0.2 / 2015-06-12
+==================
 
   * Improve error message when `req` argument missing
   * perf: enable strict mode
