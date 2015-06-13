@@ -9,7 +9,15 @@ function request(authorization) {
   }
 }
 
-describe('auth(req)', function(){
+describe('auth(req)', function () {
+  describe('arguments', function () {
+    describe('req', function () {
+      it('should be required', function () {
+        assert.throws(auth, /argument req is required/)
+      })
+    })
+  })
+
   describe('with no Authorization field', function(){
     it('should return null', function(){
       var req = request();

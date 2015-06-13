@@ -46,6 +46,10 @@ var userPassRegExp = /^([^:]*):(.*)$/
  */
 
 function auth(req) {
+  if (!req) {
+    throw new TypeError('argument req is required')
+  }
+
   // get header
   var header = (req.req || req).headers.authorization
 

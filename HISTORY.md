@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Improve error message when `req` argument missing
   * perf: enable strict mode
   * perf: hoist regular expression
   * perf: parse with regular expressions
