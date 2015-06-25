@@ -1,5 +1,5 @@
 /*!
- * morgan
+ * basic-auth
  * Copyright(c) 2013 TJ Holowaychuk
  * Copyright(c) 2014 Jonathan Ong
  * Copyright(c) 2015 Douglas Christopher Wilson
