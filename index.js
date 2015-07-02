@@ -52,7 +52,6 @@ function auth(req) {
 
   // get header
   var header = (req.req || req).headers.authorization
-
   // parse header
   var match = credentialsRegExp.exec(header || '')
 
