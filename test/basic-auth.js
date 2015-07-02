@@ -15,6 +15,20 @@ describe('auth(req)', function () {
       it('should be required', function () {
         assert.throws(auth, /argument req is required/)
       })
+
+      it('should accept a request', function () {
+        var req = request('basic Zm9vOmJhcg==')
+        var creds = auth(req)
+        assert.equal(creds.name, 'foo')
+        assert.equal(creds.pass, 'bar')
+      })
+
+      it('should accept a koa context', function () {
+        var ctx = { req: request('basic Zm9vOmJhcg==') }
+        var creds = auth(ctx)
+        assert.equal(creds.name, 'foo')
+        assert.equal(creds.pass, 'bar')
+      })
     })
   })
 

@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * Fix regression accepting a Koa context
+
 1.0.2 / 2015-06-12
 ==================
 
