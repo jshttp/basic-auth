@@ -83,9 +83,9 @@ auth.express = function(ops) {
   return function(req, res, next) {
     var credentials = auth(req),
         whitelisted = (ops.whitelist || []).indexOf(req.url) > -1,
-        authorized  = (credentials &&
-                       credentials.name === ops.user &&
-                       credentials.pass === ops.pass);
+        authorized  = credentials &&
+                      credentials.name === ops.user &&
+                      credentials.pass === ops.pass;
 
     if (ops.unsafe || whitelisted)
       return next();
