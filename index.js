@@ -72,6 +72,37 @@ function auth(req) {
 }
 
 /**
+ * Express middleware
+ *
+ * @param {object} ops
+ * @return {function}
+ * @public
+ */
+
+auth.express = function(ops) {
+  return function(req, res, next) {
+    var credentials = auth(req),
+        whitelisted = (ops.whitelist || []).indexOf(req.url) > -1,
+        authorized  = credentials &&
+                      credentials.name === ops.user &&
+                      credentials.pass === ops.pass;
+
+    if (ops.unsafe || whitelisted)
+      return next();
+
+    (authorized) ?
+      next() : issueChallenge();
+
+    function issueChallenge() {
+      var realm = ops.realm || req.hostname;
+      res.setHeader('WWW-Authenticate',
+                    'Basic realm="' + realm + '"');
+      res.sendStatus(401);
+    }
+  };
+};
+
+/**
  * Decode base64 string.
  * @private
  */
