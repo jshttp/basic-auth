@@ -11,8 +11,11 @@
   ],
   "repository": "jshttp/basic-auth",
   "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-spies": "^0.7.0",
     "istanbul": "0.3.17",
-    "mocha": "1.21.5"
+    "mocha": "1.21.5",
+    "node-mocks-http": "^1.4.3"
   },
   "files": [
     "HISTORY.md",
