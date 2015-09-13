@@ -62,6 +62,30 @@ var server = http.createServer(function (req, res) {
 server.listen(3000)
 ```
 
+### Express middleware
+
+```js
+var express = require('express');
+var auth = require('basic-auth');
+
+var app = express();
+
+app.use('/protected', auth.express({
+  user: 'myUsername',
+  pass: 'myPassword'
+}));
+
+app.listen(5000);
+```
+
+Options:
+
+* user - Username required for authentication
+* pass - Password required for authentication
+* unsafe - Boolean, turns off all authentication if true
+* whitelist - Array of paths where authentication is disabled
+* realm - Specify the realm to use in the www-authenticate header
+
 # License
 
 [MIT](LICENSE)
