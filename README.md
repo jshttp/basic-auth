@@ -69,7 +69,7 @@ server.listen(3000)
 [npm-image]: https://img.shields.io/npm/v/basic-auth.svg
 [npm-url]: https://npmjs.org/package/basic-auth
 [node-version-image]: https://img.shields.io/node/v/basic-auth.svg
-[node-version-url]: http://nodejs.org/download/
+[node-version-url]: https://nodejs.org/en/download
 [travis-image]: https://img.shields.io/travis/jshttp/basic-auth/master.svg
 [travis-url]: https://travis-ci.org/jshttp/basic-auth
 [coveralls-image]: https://img.shields.io/coveralls/jshttp/basic-auth/master.svg
