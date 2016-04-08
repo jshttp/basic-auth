@@ -37,6 +37,10 @@ describe('auth(req)', function () {
       it('should reject a number', function () {
         assert.throws(auth.bind(null, 42), /argument req is required/)
       })
+
+      it('should reject an object without headers', function () {
+        assert.throws(auth.bind(null, {}), /argument req is required/)
+      })
     })
   })
 
