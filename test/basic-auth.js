@@ -29,6 +29,14 @@ describe('auth(req)', function () {
         assert.equal(creds.name, 'foo')
         assert.equal(creds.pass, 'bar')
       })
+
+      it('should reject null', function () {
+        assert.throws(auth.bind(null, null), /argument req is required/)
+      })
+
+      it('should reject a number', function () {
+        assert.throws(auth.bind(null, 42), /argument req is required/)
+      })
     })
   })
 

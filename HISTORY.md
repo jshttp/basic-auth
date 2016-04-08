@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * Improve error message when `req` argument is not an object
+
 1.0.3 / 2015-07-01
 ==================
 

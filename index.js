@@ -50,6 +50,10 @@ function auth(req) {
     throw new TypeError('argument req is required')
   }
 
+  if (typeof req !== 'object') {
+    throw new TypeError('argument req is required to be an object')
+  }
+
   // get header
   var header = (req.req || req).headers.authorization
 
