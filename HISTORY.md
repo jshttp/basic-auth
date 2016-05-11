@@ -1,5 +1,5 @@
-unreleased
-==========
+1.0.4 / 2016-05-10
+==================
 
   * Improve error message when `req` argument is not an object
   * Improve error message when `req` missing `headers` property
