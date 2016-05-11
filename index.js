@@ -45,9 +45,17 @@ var userPassRegExp = /^([^:]*):(.*)$/
  * @public
  */
 
-function auth(req) {
+function auth(req,mode) {
   if (!req) {
     throw new TypeError('argument req is required')
+  }
+  var authHeader ='';
+  switch ((mode||'').toLowerCase()) {
+    case 'proxy':
+      authHeader='proxy-authorization';
+      break;
+    default:
+      authHeader = 'authorization';
   }
 
   if (typeof req !== 'object') {
@@ -55,7 +63,7 @@ function auth(req) {
   }
 
   // get header
-  var header = (req.req || req).headers.authorization
+  var header = (req.req || req).headers[authHeader]
 
   // parse header
   var match = credentialsRegExp.exec(header || '')
