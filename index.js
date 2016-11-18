@@ -2,7 +2,7 @@
  * basic-auth
  * Copyright(c) 2013 TJ Holowaychuk
  * Copyright(c) 2014 Jonathan Ong
- * Copyright(c) 2015 Douglas Christopher Wilson
+ * Copyright(c) 2015-2016 Douglas Christopher Wilson
  * MIT Licensed
  */
 
@@ -14,6 +14,7 @@
  */
 
 module.exports = auth
+module.exports.parse = parse
 
 /**
  * RegExp for basic auth credentials
@@ -58,21 +59,7 @@ function auth (req) {
   var header = getAuthorization(req.req || req)
 
   // parse header
-  var match = CREDENTIALS_REGEXP.exec(header || '')
-
-  if (!match) {
-    return
-  }
-
-  // decode user pass
-  var userPass = USER_PASS_REGEXP.exec(decodeBase64(match[1]))
-
-  if (!userPass) {
-    return
-  }
-
-  // return credentials object
-  return new Credentials(userPass[1], userPass[2])
+  return parse(header)
 }
 
 /**
@@ -95,6 +82,37 @@ function getAuthorization (req) {
   }
 
   return req.headers.authorization
+}
+
+/**
+ * Parse basic auth to object.
+ *
+ * @param {string} string
+ * @return {object}
+ * @public
+ */
+
+function parse (string) {
+  if (typeof string !== 'string') {
+    return undefined
+  }
+
+  // parse header
+  var match = CREDENTIALS_REGEXP.exec(string)
+
+  if (!match) {
+    return undefined
+  }
+
+  // decode user pass
+  var userPass = USER_PASS_REGEXP.exec(decodeBase64(match[1]))
+
+  if (!userPass) {
+    return undefined
+  }
+
+  // return credentials object
+  return new Credentials(userPass[1], userPass[2])
 }
 
 /**

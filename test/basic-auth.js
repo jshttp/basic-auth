@@ -117,3 +117,69 @@ describe('auth(req)', function () {
     })
   })
 })
+
+describe('auth.parse(string)', function () {
+  describe('with undefined string', function () {
+    it('should return undefined', function () {
+      assert.strictEqual(auth.parse(), undefined)
+    })
+  })
+
+  describe('with malformed string', function () {
+    it('should return undefined', function () {
+      assert.strictEqual(auth.parse('Something'), undefined)
+    })
+  })
+
+  describe('with malformed scheme', function () {
+    it('should return undefined', function () {
+      assert.strictEqual(auth.parse('basic_Zm9vOmJhcg=='), undefined)
+    })
+  })
+
+  describe('with malformed credentials', function () {
+    it('should return undefined', function () {
+      assert.strictEqual(auth.parse('basic Zm9vcgo='), undefined)
+    })
+  })
+
+  describe('with valid credentials', function () {
+    it('should return .name and .pass', function () {
+      var creds = auth.parse('basic Zm9vOmJhcg==')
+      assert.equal(creds.name, 'foo')
+      assert.equal(creds.pass, 'bar')
+    })
+  })
+
+  describe('with empty password', function () {
+    it('should return .name and .pass', function () {
+      var creds = auth.parse('basic Zm9vOg==')
+      assert.equal(creds.name, 'foo')
+      assert.equal(creds.pass, '')
+    })
+  })
+
+  describe('with empty userid', function () {
+    it('should return .name and .pass', function () {
+      var creds = auth.parse('basic OnBhc3M=')
+      assert.equal(creds.name, '')
+      assert.equal(creds.pass, 'pass')
+    })
+  })
+
+  describe('with empty userid and pass', function () {
+    it('should return .name and .pass', function () {
+      var creds = auth.parse('basic Og==')
+      assert.equal(creds.name, '')
+      assert.equal(creds.pass, '')
+    })
+  })
+
+  describe('with colon in pass', function () {
+    it('should return .name and .pass', function () {
+      var creds = auth.parse('basic Zm9vOnBhc3M6d29yZA==')
+      assert.equal(creds.name, 'foo')
+      assert.equal(creds.pass, 'pass:word')
+    })
+  })
+})

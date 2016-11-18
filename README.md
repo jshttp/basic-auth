@@ -30,6 +30,11 @@ Get the basic auth credentials from the given request. The `Authorization`
 header is parsed and if the header is invalid, `undefined` is returned,
 otherwise an object with `name` and `pass` properties.
 
+### auth.parse(string)
+
+Parse a basic auth authorization header string. This will return an object
+with `name` and `pass` properties, or `undefined` if the string is invalid.
+
 ## Example
 
 Pass a node request or koa Context object to the module exported. If
@@ -40,7 +45,14 @@ parsing fails `undefined` is returned, otherwise an object with
 var auth = require('basic-auth');
 var user = auth(req);
 // => { name: 'something', pass: 'whatever' }
+```
 
+A header string from any other location can also be parsed with
+`auth.parse`, for example a `Proxy-Authorization` header:
+
+```js
+var auth = require('basic-auth')
+var user = auth.parse(req.getHeader('Proxy-Authorization'))
 ```
 
 ### With vanilla node.js http server

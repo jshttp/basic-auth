@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * Add `auth.parse` for low-level string parsing
+
 1.0.4 / 2016-05-10
 ==================
 
