@@ -1,7 +1,7 @@
 {
   "name": "basic-auth",
   "description": "node.js basic auth parser",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "license": "MIT",
   "keywords": [
     "basic",

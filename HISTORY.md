@@ -1,5 +1,5 @@
-unreleased
-==========
+1.1.0 / 2016-11-18
+==================
 
   * Add `auth.parse` for low-level string parsing
 
