@@ -45,30 +45,30 @@ describe('auth(req)', function () {
   })
 
   describe('with no Authorization field', function () {
-    it('should return null', function () {
+    it('should return undefined', function () {
       var req = request()
-      assert(auth(req) == null)
+      assert.strictEqual(auth(req), undefined)
     })
   })
 
   describe('with malformed Authorization field', function () {
-    it('should return null', function () {
+    it('should return undefined', function () {
       var req = request('Something')
-      assert(auth(req) == null)
+      assert.strictEqual(auth(req), undefined)
     })
   })
 
   describe('with malformed Authorization scheme', function () {
-    it('should return null', function () {
+    it('should return undefined', function () {
       var req = request('basic_Zm9vOmJhcg==')
-      assert(auth(req) == null)
+      assert.strictEqual(auth(req), undefined)
     })
   })
 
   describe('with malformed credentials', function () {
-    it('should return null', function () {
+    it('should return undefined', function () {
       var req = request('basic Zm9vcgo=')
-      assert(auth(req) == null)
+      assert.strictEqual(auth(req), undefined)
     })
   })
 
