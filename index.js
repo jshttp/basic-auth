@@ -24,7 +24,7 @@ module.exports = auth
  * @private
  */
 
-var credentialsRegExp = /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9\-\._~\+\/]+=*) *$/
+var CREDENTIALS_REGEXP = /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9._~+/-]+=*) *$/
 
 /**
  * RegExp for basic auth user/pass
@@ -35,7 +35,7 @@ var credentialsRegExp = /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9\-\._~\+\/]+=*)
  * @private
  */
 
-var userPassRegExp = /^([^:]*):(.*)$/
+var USER_PASS_REGEXP = /^([^:]*):(.*)$/
 
 /**
  * Parse the Authorization header field of a request.
@@ -45,7 +45,7 @@ var userPassRegExp = /^([^:]*):(.*)$/
  * @public
  */
 
-function auth(req) {
+function auth (req) {
   if (!req) {
     throw new TypeError('argument req is required')
   }
@@ -58,14 +58,14 @@ function auth(req) {
   var header = getAuthorization(req.req || req)
 
   // parse header
-  var match = credentialsRegExp.exec(header || '')
+  var match = CREDENTIALS_REGEXP.exec(header || '')
 
   if (!match) {
     return
   }
 
   // decode user pass
-  var userPass = userPassRegExp.exec(decodeBase64(match[1]))
+  var userPass = USER_PASS_REGEXP.exec(decodeBase64(match[1]))
 
   if (!userPass) {
     return
@@ -80,7 +80,7 @@ function auth(req) {
  * @private
  */
 
-function decodeBase64(str) {
+function decodeBase64 (str) {
   return new Buffer(str, 'base64').toString()
 }
 
@@ -89,7 +89,7 @@ function decodeBase64(str) {
  * @private
  */
 
-function getAuthorization(req) {
+function getAuthorization (req) {
   if (!req.headers || typeof req.headers !== 'object') {
     throw new TypeError('argument req is required to have headers property')
   }
@@ -102,7 +102,7 @@ function getAuthorization(req) {
  * @private
  */
 
-function Credentials(name, pass) {
+function Credentials (name, pass) {
   this.name = name
   this.pass = pass
 }
