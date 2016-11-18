@@ -20,6 +20,8 @@ $ npm install basic-auth
 
 ## API
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 var auth = require('basic-auth')
 ```
@@ -41,14 +43,18 @@ Pass a node request or koa Context object to the module exported. If
 parsing fails `undefined` is returned, otherwise an object with
 `.name` and `.pass`.
 
+<!-- eslint-disable no-unused-vars, no-undef -->
+
 ```js
-var auth = require('basic-auth');
-var user = auth(req);
+var auth = require('basic-auth')
+var user = auth(req)
 // => { name: 'something', pass: 'whatever' }
 ```
 
 A header string from any other location can also be parsed with
 `auth.parse`, for example a `Proxy-Authorization` header:
+
+<!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
 var auth = require('basic-auth')
