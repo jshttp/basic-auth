@@ -9,6 +9,14 @@ function request (authorization) {
   }
 }
 
+function requestWithCapitalisedAuthorization (authorization) {
+  return {
+    headers: {
+      Authorization: authorization
+    }
+  }
+}
+
 describe('auth(req)', function () {
   describe('arguments', function () {
     describe('req', function () {
@@ -48,6 +56,16 @@ describe('auth(req)', function () {
     it('should return undefined', function () {
       var req = request()
       assert.strictEqual(auth(req), undefined)
+    })
+  })
+
+  describe('with capitalised Authorization field', function () {
+    it('should not return undefined', function () {
+      var req = requestWithCapitalisedAuthorization('basic Zm9vOmJhcg==')
+      var creds = auth(req)
+
+      assert.equal(creds.name, 'foo')
+      assert.equal(creds.pass, 'bar')
     })
   })
 
