@@ -81,7 +81,7 @@ function getAuthorization (req) {
     throw new TypeError('argument req is required to have headers property')
   }
 
-  return req.headers.authorization
+  return req.headers.authorization || req.headers.Authorization
 }
 
 /**
