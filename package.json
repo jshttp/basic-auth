@@ -17,7 +17,8 @@
     "eslint-plugin-promise": "3.4.0",
     "eslint-plugin-standard": "2.0.1",
     "istanbul": "0.4.5",
-    "mocha": "1.21.5"
+    "mocha": "1.21.5",
+    "sinon": "^1.17.7"
   },
   "files": [
     "HISTORY.md",

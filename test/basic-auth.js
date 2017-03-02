@@ -1,4 +1,5 @@
 var assert = require('assert')
+var sinon = require('sinon')
 var auth = require('..')
 
 function request (authorization) {
@@ -180,6 +181,70 @@ describe('auth.parse(string)', function () {
       var creds = auth.parse('basic Zm9vOnBhc3M6d29yZA==')
       assert.equal(creds.name, 'foo')
       assert.equal(creds.pass, 'pass:word')
+    })
+  })
+})
+
+describe('auth.middleware', function () {
+  beforeEach(function () {
+    process.env.BASIC_AUTH = ''
+  })
+
+  describe('with empty BASIC_AUTH', function () {
+    it('should call next with no validation', function () {
+      var req = request()
+      var next = sinon.spy()
+
+      var middleware = auth.middleware()
+      middleware(req, null, next)
+
+      assert(next.calledOnce)
+      assert(next.args[0].length === 0)
+    })
+  })
+
+  describe('with valid BASIC_AUTH', function () {
+    describe('with valid credentials', function () {
+      it('should call next with no error', function () {
+        var req = request('basic Zm9vOmJhcg==')
+        var next = sinon.spy()
+        process.env.BASIC_AUTH = 'foo:bar'
+
+        var middleware = auth.middleware()
+        middleware(req, null, next)
+
+        assert(next.calledOnce)
+        assert(next.args[0].length === 0)
+      })
+    })
+
+    describe('with invalid credentials', function () {
+      it('should call next with error instance of Error', function () {
+        var req = request('basic Zm9vOmJhcg==')
+        var next = sinon.spy()
+        process.env.BASIC_AUTH = 'foo:foo'
+
+        var middleware = auth.middleware()
+        middleware(req, null, next)
+
+        assert(next.calledOnce)
+        var err = next.args[0][0]
+        assert(err instanceof Error)
+      })
+
+      it('should call next with error instance of CustomError', function () {
+        var req = request('basic Zm9vOmJhcg==')
+        var next = sinon.spy()
+        process.env.BASIC_AUTH = 'foo:foo'
+        function CustomError () {}
+
+        var middleware = auth.middleware(CustomError)
+        middleware(req, null, next)
+
+        assert(next.calledOnce)
+        var err = next.args[0][0]
+        assert(err instanceof CustomError)
+      })
     })
   })
 })

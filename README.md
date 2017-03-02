@@ -37,6 +37,12 @@ otherwise an object with `name` and `pass` properties.
 Parse a basic auth authorization header string. This will return an object
 with `name` and `pass` properties, or `undefined` if the string is invalid.
 
+### auth.middleware(UnauthorizedError)
+
+Reads from env variable `BASIC_AUTH` in format user:pass to treat as valid
+then get credentials using `auth` and validates against set in env.
+In case of mismatch through error instance of ErrorClass
+
 ## Example
 
 Pass a node request or koa Context object to the module exported. If
