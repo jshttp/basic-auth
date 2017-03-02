@@ -15,6 +15,7 @@
 
 module.exports = auth
 module.exports.parse = parse
+module.exports.middleware = middleware
 
 /**
  * RegExp for basic auth credentials
@@ -37,6 +38,37 @@ var CREDENTIALS_REGEXP = /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9._~+/-]+=*) *$
  */
 
 var USER_PASS_REGEXP = /^([^:]*):(.*)$/
+
+/**
+ * Custom Express middleware
+ *
+ * reads from env variable BASIC_AUTH in format user:pass to treat as valid
+ * validates credentials from req
+ * in case of mismatch through error instance of ErrorClass
+ *
+ * @param [ErrorClass]
+ * @returns {Function}
+ * @public
+ */
+function middleware (ErrorClass) {
+  ErrorClass = ErrorClass || Error
+
+  return function authenticate (req, res, next) {
+    if (!process.env.BASIC_AUTH) {
+      return next()
+    }
+
+    var credentials = auth(req)
+    var parts = process.env.BASIC_AUTH.split(':')
+
+    if (credentials && parts[0] === credentials.name && parts[1] === credentials.pass) {
+      return next()
+    }
+
+    var message = 'Unauthorized: ' + JSON.stringify(credentials)
+    return next(new ErrorClass(message))
+  }
+}
 
 /**
  * Parse the Authorization header field of a request.

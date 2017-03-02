@@ -1,3 +1,8 @@
+1.2.0 / 2017-03-02
+==================
+
+  * Add `auth.middleware` custom express middleware
+
 1.1.0 / 2016-11-18
 ==================
 
