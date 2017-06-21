@@ -12,6 +12,7 @@ node_js:
   - "6.9"
   - "7.1"
 sudo: false
+dist: precise
 cache:
   directories:
     - node_modules
