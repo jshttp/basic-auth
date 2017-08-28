@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Drop support for Node.js below 0.8
   * Use `safe-buffer` for improved Buffer API
 
 1.1.0 / 2016-11-18
