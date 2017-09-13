@@ -2,6 +2,7 @@ unreleased
 ==========
 
   * Drop support for Node.js below 0.8
+  * Remove `auth(ctx)` signature -- pass in header or `auth(ctx.req)`
   * Use `safe-buffer` for improved Buffer API
 
 1.1.0 / 2016-11-18

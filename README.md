@@ -39,9 +39,8 @@ with `name` and `pass` properties, or `undefined` if the string is invalid.
 
 ## Example
 
-Pass a node request or koa Context object to the module exported. If
-parsing fails `undefined` is returned, otherwise an object with
-`.name` and `.pass`.
+Pass a Node.js request object to the module export. If parsing fails
+`undefined` is returned, otherwise an object with `.name` and `.pass`.
 
 <!-- eslint-disable no-unused-vars, no-undef -->
 

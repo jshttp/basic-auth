@@ -63,7 +63,7 @@ function auth (req) {
   }
 
   // get header
-  var header = getAuthorization(req.req || req)
+  var header = getAuthorization(req)
 
   // parse header
   return parse(header)

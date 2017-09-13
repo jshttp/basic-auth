@@ -23,13 +23,6 @@ describe('auth(req)', function () {
         assert.equal(creds.pass, 'bar')
       })
 
-      it('should accept a koa context', function () {
-        var ctx = { req: request('basic Zm9vOmJhcg==') }
-        var creds = auth(ctx)
-        assert.equal(creds.name, 'foo')
-        assert.equal(creds.pass, 'bar')
-      })
-
       it('should reject null', function () {
         assert.throws(auth.bind(null, null), /argument req is required/)
       })
