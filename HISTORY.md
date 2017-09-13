@@ -1,5 +1,5 @@
-unreleased
-==========
+2.0.0 / 2017-09-12
+==================
 
   * Drop support for Node.js below 0.8
   * Remove `auth(ctx)` signature -- pass in header or `auth(ctx.req)`
