@@ -13,7 +13,7 @@
  * @private
  */
 
-var Buffer = require('safe-buffer').Buffer
+var Buffer = require('safer-buffer').Buffer
 
 /**
  * Module exports.

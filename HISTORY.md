@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * Switch from `safe-buffer` to `safer-buffer`
+
 2.0.0 / 2017-09-12
 ==================
 
