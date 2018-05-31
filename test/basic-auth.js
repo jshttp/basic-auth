@@ -175,4 +175,14 @@ describe('auth.parse(string)', function () {
       assert.equal(creds.pass, 'pass:word')
     })
   })
+
+  describe('with multiple credentials credentials', function () {
+    it('should return .name and .pass', function () {
+      var JWT_BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+
+      var creds = auth.parse('bearer ' + JWT_BEARER_TOKEN + ', basic Zm9vOmJhcg==')
+      assert.equal(creds.name, 'foo')
+      assert.equal(creds.pass, 'bar')
+    })
+  })
 })

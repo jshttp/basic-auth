@@ -32,7 +32,7 @@ module.exports.parse = parse
  * @private
  */
 
-var CREDENTIALS_REGEXP = /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9._~+/-]+=*) *$/
+var CREDENTIALS_REGEXP = /\s*(?:[Bb][Aa][Ss][Ii][Cc])\s+([A-Za-z0-9._~+/-]+=*)\s*/
 
 /**
  * RegExp for basic auth user/pass
