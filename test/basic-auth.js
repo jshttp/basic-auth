@@ -19,8 +19,8 @@ describe('auth(req)', function () {
       it('should accept a request', function () {
         var req = request('basic Zm9vOmJhcg==')
         var creds = auth(req)
-        assert.equal(creds.name, 'foo')
-        assert.equal(creds.pass, 'bar')
+        assert.strictEqual(creds.name, 'foo')
+        assert.strictEqual(creds.pass, 'bar')
       })
 
       it('should reject null', function () {
@@ -69,8 +69,8 @@ describe('auth(req)', function () {
     it('should return .name and .pass', function () {
       var req = request('basic Zm9vOmJhcg==')
       var creds = auth(req)
-      assert.equal(creds.name, 'foo')
-      assert.equal(creds.pass, 'bar')
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'bar')
     })
   })
 
@@ -78,8 +78,8 @@ describe('auth(req)', function () {
     it('should return .name and .pass', function () {
       var req = request('basic Zm9vOg==')
       var creds = auth(req)
-      assert.equal(creds.name, 'foo')
-      assert.equal(creds.pass, '')
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, '')
     })
   })
 
@@ -87,8 +87,8 @@ describe('auth(req)', function () {
     it('should return .name and .pass', function () {
       var req = request('basic OnBhc3M=')
       var creds = auth(req)
-      assert.equal(creds.name, '')
-      assert.equal(creds.pass, 'pass')
+      assert.strictEqual(creds.name, '')
+      assert.strictEqual(creds.pass, 'pass')
     })
   })
 
@@ -96,8 +96,8 @@ describe('auth(req)', function () {
     it('should return .name and .pass', function () {
       var req = request('basic Og==')
       var creds = auth(req)
-      assert.equal(creds.name, '')
-      assert.equal(creds.pass, '')
+      assert.strictEqual(creds.name, '')
+      assert.strictEqual(creds.pass, '')
     })
   })
 
@@ -105,8 +105,8 @@ describe('auth(req)', function () {
     it('should return .name and .pass', function () {
       var req = request('basic Zm9vOnBhc3M6d29yZA==')
       var creds = auth(req)
-      assert.equal(creds.name, 'foo')
-      assert.equal(creds.pass, 'pass:word')
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'pass:word')
     })
   })
 })
@@ -139,40 +139,40 @@ describe('auth.parse(string)', function () {
   describe('with valid credentials', function () {
     it('should return .name and .pass', function () {
       var creds = auth.parse('basic Zm9vOmJhcg==')
-      assert.equal(creds.name, 'foo')
-      assert.equal(creds.pass, 'bar')
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'bar')
     })
   })
 
   describe('with empty password', function () {
     it('should return .name and .pass', function () {
       var creds = auth.parse('basic Zm9vOg==')
-      assert.equal(creds.name, 'foo')
-      assert.equal(creds.pass, '')
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, '')
     })
   })
 
   describe('with empty userid', function () {
     it('should return .name and .pass', function () {
       var creds = auth.parse('basic OnBhc3M=')
-      assert.equal(creds.name, '')
-      assert.equal(creds.pass, 'pass')
+      assert.strictEqual(creds.name, '')
+      assert.strictEqual(creds.pass, 'pass')
     })
   })
 
   describe('with empty userid and pass', function () {
     it('should return .name and .pass', function () {
       var creds = auth.parse('basic Og==')
-      assert.equal(creds.name, '')
-      assert.equal(creds.pass, '')
+      assert.strictEqual(creds.name, '')
+      assert.strictEqual(creds.pass, '')
     })
   })
 
   describe('with colon in pass', function () {
     it('should return .name and .pass', function () {
       var creds = auth.parse('basic Zm9vOnBhc3M6d29yZA==')
-      assert.equal(creds.name, 'foo')
-      assert.equal(creds.pass, 'pass:word')
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'pass:word')
     })
   })
 })
