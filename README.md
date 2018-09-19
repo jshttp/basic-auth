@@ -101,13 +101,13 @@ server.listen(3000)
 
 [MIT](LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/basic-auth.svg
-[npm-url]: https://npmjs.org/package/basic-auth
-[node-version-image]: https://img.shields.io/node/v/basic-auth.svg
-[node-version-url]: https://nodejs.org/en/download
-[travis-image]: https://img.shields.io/travis/jshttp/basic-auth/master.svg
-[travis-url]: https://travis-ci.org/jshttp/basic-auth
-[coveralls-image]: https://img.shields.io/coveralls/jshttp/basic-auth/master.svg
+[coveralls-image]: https://badgen.net/coveralls/c/github/jshttp/basic-auth/master
 [coveralls-url]: https://coveralls.io/r/jshttp/basic-auth?branch=master
-[downloads-image]: https://img.shields.io/npm/dm/basic-auth.svg
+[downloads-image]: https://badgen.net/npm/dm/basic-auth
 [downloads-url]: https://npmjs.org/package/basic-auth
+[node-version-image]: https://badgen.net/npm/node/basic-auth
+[node-version-url]: https://nodejs.org/en/download
+[npm-image]: https://badgen.net/npm/v/basic-auth
+[npm-url]: https://npmjs.org/package/basic-auth
+[travis-image]: https://badgen.net/travis/jshttp/basic-auth/master
+[travis-url]: https://travis-ci.org/jshttp/basic-auth
