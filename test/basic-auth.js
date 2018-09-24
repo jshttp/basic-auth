@@ -109,6 +109,33 @@ describe('auth(req)', function () {
       assert.strictEqual(creds.pass, 'pass:word')
     })
   })
+
+  describe('with scheme "Basic"', function () {
+    it('should return .name and .pass', function () {
+      var req = request('Basic Zm9vOmJhcg==')
+      var creds = auth(req)
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'bar')
+    })
+  })
+
+  describe('with scheme "BASIC"', function () {
+    it('should return .name and .pass', function () {
+      var req = request('BASIC Zm9vOmJhcg==')
+      var creds = auth(req)
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'bar')
+    })
+  })
+
+  describe('with scheme "BaSiC"', function () {
+    it('should return .name and .pass', function () {
+      var req = request('BaSiC Zm9vOmJhcg==')
+      var creds = auth(req)
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'bar')
+    })
+  })
 })
 
 describe('auth.parse(string)', function () {
@@ -173,6 +200,33 @@ describe('auth.parse(string)', function () {
       var creds = auth.parse('basic Zm9vOnBhc3M6d29yZA==')
       assert.strictEqual(creds.name, 'foo')
       assert.strictEqual(creds.pass, 'pass:word')
+    })
+  })
+
+  describe('with scheme "Basic"', function () {
+    it('should return .name and .pass', function () {
+      var req = request('Basic Zm9vOmJhcg==')
+      var creds = auth(req)
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'bar')
+    })
+  })
+
+  describe('with scheme "BASIC"', function () {
+    it('should return .name and .pass', function () {
+      var req = request('BASIC Zm9vOmJhcg==')
+      var creds = auth(req)
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'bar')
+    })
+  })
+
+  describe('with scheme "BaSiC"', function () {
+    it('should return .name and .pass', function () {
+      var req = request('BaSiC Zm9vOmJhcg==')
+      var creds = auth(req)
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'bar')
     })
   })
 })
