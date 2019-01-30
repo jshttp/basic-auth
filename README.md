@@ -26,9 +26,9 @@ $ npm install basic-auth
 var auth = require('basic-auth')
 ```
 
-### auth(req)
+### auth(request)
 
-Get the basic auth credentials from the given request. The `Authorization`
+Get the basic auth credentials from the given [request](https://nodejs.org/dist/latest/docs/api/http.html#http_class_http_incomingmessage). The `authorization`
 header is parsed and if the header is invalid, `undefined` is returned,
 otherwise an object with `name` and `pass` properties.
 
