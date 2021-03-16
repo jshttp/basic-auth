@@ -1,3 +1,12 @@
+# Test coverage
 coverage
+
+# Library files
 node_modules
+
+# Log files
 npm-debug.log
+
+# Read this 👇 for putting package-lock in gitignore
+# https://github.com/jshttp/basic-auth/pull/46#discussion_r595492528
+package-lock.json
