@@ -13,6 +13,10 @@ node_js:
   - "8.12"
   - "9.11"
   - "10.10"
+  - "11"
+  - "12"
+  - "13"
+  - "14"
 sudo: false
 cache:
   directories:
@@ -41,10 +45,13 @@ before_install:
     # mocha for testing
     # - use 2.x for Node.js < 0.10
     # - use 3.x for Node.js < 6
+    # - use 5.x for Node.js < 10
     if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -eq 0 && "$(cut -d. -f2 <<< "$TRAVIS_NODE_VERSION")" -lt 10 ]]; then
       npm install --save-dev mocha@2.5.3
     elif [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
       npm install --save-dev mocha@3.5.3
+    elif [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 10 ]]; then
+      npm install --save-dev mocha@5.2.0
     fi
   # Update Node.js modules
   - |
