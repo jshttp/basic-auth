@@ -53,7 +53,7 @@ var USER_PASS_REGEXP = /^([^:]*):(.*)$/
  * @public
  */
 
-function auth (req) {
+function auth (req, isURI = false) {
   if (!req) {
     throw new TypeError('argument req is required')
   }
@@ -66,7 +66,7 @@ function auth (req) {
   var header = getAuthorization(req)
 
   // parse header
-  return parse(header)
+  return parse(header, isURI)
 }
 
 /**
@@ -99,12 +99,10 @@ function getAuthorization (req) {
  * @public
  */
 
-function parse (string) {
+function parse (string, isURI = false) {
   if (typeof string !== 'string') {
     return undefined
-  }
-
-  // parse header
+  } // parse header
   var match = CREDENTIALS_REGEXP.exec(string)
 
   if (!match) {
@@ -112,7 +110,13 @@ function parse (string) {
   }
 
   // decode user pass
-  var userPass = USER_PASS_REGEXP.exec(decodeBase64(match[1]))
+  let userPass = null;
+
+  if (isURI) {
+    var userPass = USER_PASS_REGEXP.exec(decodeURIComponent(decodeBase64(match[1])))
+  } else {
+    var userPass = USER_PASS_REGEXP.exec(decodeBase64(match[1]))
+  }
 
   if (!userPass) {
     return undefined
