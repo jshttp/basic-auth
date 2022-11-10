@@ -86,7 +86,7 @@ var server = http.createServer(function (req, res) {
 function check (name, pass) {
   var valid = true
 
-  // Simple method to prevent short-circut and use timing-safe compare
+  // Simple method to prevent short-circuit and use timing-safe compare
   valid = compare(name, 'john') && valid
   valid = compare(pass, 'secret') && valid
 
