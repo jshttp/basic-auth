@@ -7,19 +7,22 @@
  */
 
 /**
- * Parse the Authorization header field of a request.
- *
- * @param {object} req
- * @return {object} with .name and .pass
+ * Create an instance of Authorization header field of a request.
+ * @class Auth
  * @public
  */
 
 class Auth{
-    /**
-     * Module dependencies.
-     * @private
+
+   /**
+    * Module dependencies.
+    *
+    * @private
+    * @static
+    * @memberof Auth
     */
-    private Buffer = require('safe-buffer').Buffer;
+   private static Buffer = require('safe-buffer').Buffer;
+
 
     /**
      * RegExp for basic auth credentials
@@ -28,8 +31,11 @@ class Auth{
      * auth-scheme = "Basic" ; case insensitive
      * token68     = 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"="
      * @private
+     * @static
+     * @memberof Auth
      */
-    private CREDENTIALS_REGEXP = /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9._~+/-]+=*) *$/;
+    private static CREDENTIALS_REGEXP = /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9._~+/-]+=*) *$/;
+
 
     /**
      * RegExp for basic auth user/pass
@@ -38,13 +44,28 @@ class Auth{
      * userid      = *<TEXT excluding ":">
      * password    = *TEXT
      * @private
+     * @static
+     * @memberof Auth
      */
-    private USER_PASS_REGEXP = /^([^:]*):(.*)$/;
+    private static USER_PASS_REGEXP = /^([^:]*):(.*)$/;
 
 
+    /**
+     *  Hold request input
+     *
+     * @private
+     * @type {Request}
+     * @memberof Auth
+     */
     private request: Request;
 
 
+    /**
+     * Creates an instance of Auth.
+     * 
+     * @param {Request} req
+     * @memberof Auth
+     */
     constructor(req:Request){
         if (!req) {
             throw new TypeError('argument req is required')
@@ -57,21 +78,31 @@ class Auth{
         this.request = req;
     }
 
+
     /**
      * Decode base64 string.
+     *
      * @private
+     * @static
+     * @param {string} str
+     * @returns {string}
+     * @memberof Auth
      */
-
-    private decodeBase64 (str: string): string {
-        return Buffer.from(str, 'base64').toString()
+    private static decodeBase64 (str: string): string {
+        return Auth.Buffer.from(str, 'base64').toString()
     }
+
 
     /**
      * Get the Authorization header from request object.
+     *
      * @private
+     * @static
+     * @param {Request} req
+     * @returns {string}
+     * @memberof Auth
      */
-
-    private getAuthorization (req:Request):string {
+    private static getAuthorization (req:Request):string {
         if (!req.headers || typeof req.headers !== 'object' || !("authorization" in req.headers)) {
             throw new TypeError('argument req is required to have headers property')
         }
@@ -79,31 +110,28 @@ class Auth{
         return req.headers.authorization as string;
     }
 
+
     /**
      * Parse basic auth to object.
      *
+     * @static
      * @param {string} string
-     * @return {object}
-     * @public
+     * @returns {(Credentials | undefined)}
+     * @memberof Auth
      */
-
-    parse (): Credentials | undefined {
-        // get header
-        const header = this.getAuthorization(this.request);
-
-        if (typeof header !== 'string') {
+    static directParse (string:string): Credentials | undefined {
+        if (typeof string !== 'string') {
             return undefined;
         }
-    
         // parse header
-        const match = this.CREDENTIALS_REGEXP.exec(header)
+        const match = Auth.CREDENTIALS_REGEXP.exec(string)
     
         if (!match) {
             return undefined;
         }
         
         // decode user pass
-        const userPass = this.USER_PASS_REGEXP.exec(this.decodeBase64(match[1]))
+        const userPass = Auth.USER_PASS_REGEXP.exec(Auth.decodeBase64(match[1]))
     
 
         if (!userPass) {
@@ -114,27 +142,17 @@ class Auth{
         return new Credentials(userPass[1], userPass[2])
     }
 
-    directParse (string: string): Credentials | undefined{
-        if (typeof string !== 'string') {
-            return undefined
-          }
-        
-          // parse header
-          var match = this.CREDENTIALS_REGEXP.exec(string);
-        
-          if (!match) {
-            return undefined
-          }
-        
-          // decode user pass
-          var userPass = this.USER_PASS_REGEXP.exec(this.decodeBase64(match[1]))
-        
-          if (!userPass) {
-            return undefined
-          }
-        
-          // return credentials object
-          return new Credentials(userPass[1], userPass[2])
+    
+    /**
+     * Parse basic auth to object.
+     *
+     * @returns {(Credentials | undefined)}
+     * @memberof Auth
+     */
+    parse (): Credentials | undefined {
+        // get header
+        const header = Auth.getAuthorization(this.request);
+        return Auth.directParse(header);
     }
 }
 
@@ -143,7 +161,6 @@ class Auth{
  * class to represent user credentials.
  * @private
  */
-
 class Credentials {
     name: string;
     pass: string;
@@ -159,9 +176,8 @@ class Credentials {
  * Module exports.
  * @public
  */
-
 module.exports = function(req:Request){
     const parseObj = new Auth(req);
-    this.prototype.parse = parseObj.directParse;
     return parseObj.parse();
 }
+module.exports.parse= Auth.directParse;

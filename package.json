@@ -39,6 +39,6 @@
     "test": "mocha --check-leaks --reporter spec --bail",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/",
-    "build": "tsc --build tsconfig.json && npm lint --fix"
+    "build": "tsc --build tsconfig.json && eslint --plugin markdown --ext js,md . --fix"
   }
 }
