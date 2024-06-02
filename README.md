@@ -1,10 +1,10 @@
 # basic-auth
 
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-[![Node.js Version][node-version-image]][node-version-url]
-[![Build Status][travis-image]][travis-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
+[![NPM Version][npm-version-image]][npm-url]
+[![NPM Downloads][npm-downloads-image]][npm-url]
+[![Node.js Version][node-image]][node-url]
+[![Build Status][ci-image]][ci-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
 
 Generic basic auth Authorization header field parser for whatever.
 
@@ -101,13 +101,12 @@ server.listen(3000)
 
 [MIT](LICENSE)
 
+[ci-image]: https://badgen.net/github/checks/jshttp/basic-auth/master?label=ci
+[ci-url]: https://github.com/jshttp/basic-auth/actions/workflows/ci.yml
 [coveralls-image]: https://badgen.net/coveralls/c/github/jshttp/basic-auth/master
 [coveralls-url]: https://coveralls.io/r/jshttp/basic-auth?branch=master
-[downloads-image]: https://badgen.net/npm/dm/basic-auth
-[downloads-url]: https://npmjs.org/package/basic-auth
-[node-version-image]: https://badgen.net/npm/node/basic-auth
-[node-version-url]: https://nodejs.org/en/download
-[npm-image]: https://badgen.net/npm/v/basic-auth
+[node-image]: https://badgen.net/npm/node/basic-auth
+[node-url]: https://nodejs.org/en/download
+[npm-downloads-image]: https://badgen.net/npm/dm/basic-auth
 [npm-url]: https://npmjs.org/package/basic-auth
-[travis-image]: https://badgen.net/travis/jshttp/basic-auth/master
-[travis-url]: https://travis-ci.org/jshttp/basic-auth
+[npm-version-image]: https://badgen.net/npm/v/basic-auth
