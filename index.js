@@ -49,7 +49,8 @@ var USER_PASS_REGEXP = /^([^:]*):(.*)$/
  * Parse the Authorization header field of a request.
  *
  * @param {object} req
- * @return {object} with .name and .pass
+ * @throws {TypeError}
+ * @returns {(Credentials|undefined)}
  * @public
  */
 
