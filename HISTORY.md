@@ -2,6 +2,7 @@ unreleased
 ==================
 
   * Breaking Change: Node.js 18 is the minimum supported version
+  * deps: remove `safe-buffer`
 
 2.0.1 / 2018-09-19
 ==================
