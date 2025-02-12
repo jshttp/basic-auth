@@ -1,3 +1,8 @@
+unreleased
+==================
+
+  * feat: add support for fetch API `Request` interface
+
 2.0.1 / 2018-09-19
 ==================
 
