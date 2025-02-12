@@ -9,13 +9,6 @@
 'use strict'
 
 /**
- * Module dependencies.
- * @private
- */
-
-var Buffer = require('safe-buffer').Buffer
-
-/**
  * Module exports.
  * @public
  */
