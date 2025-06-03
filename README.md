@@ -37,6 +37,11 @@ otherwise an object with `name` and `pass` properties.
 Parse a basic auth authorization header string. This will return an object
 with `name` and `pass` properties, or `undefined` if the string is invalid.
 
+### auth.format(credentials)
+
+Format a credentials object with `name` and `pass` properties as a basic
+auth authorization header string.
+
 ## Example
 
 Pass a Node.js request object to the module export. If parsing fails
@@ -58,6 +63,19 @@ A header string from any other location can also be parsed with
 ```js
 var auth = require('basic-auth')
 var user = auth.parse(req.getHeader('Proxy-Authorization'))
+```
+
+A credentials object can be formatted with `auth.format` as
+basic auth header string.
+
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+var auth = require('basic-auth')
+var credentials = { name: 'foo', pass: 'bar' }
+var authHeader = auth.format(credentials)
+// => "Basic Zm9vOmJhcg=="
 ```
 
 ### With vanilla node.js http server
