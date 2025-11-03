@@ -230,3 +230,74 @@ describe('auth.parse(string)', function () {
     })
   })
 })
+
+describe('auth.format(credentials)', function () {
+  describe('arguments', function () {
+    describe('credentials', function () {
+      it('should be required', function () {
+        assert.throws(auth.format, /argument credentials is required/)
+      })
+
+      it('should accept credentials', function () {
+        var header = auth.format({ name: 'foo', pass: 'bar' })
+        assert.strictEqual(header, 'Basic Zm9vOmJhcg==')
+      })
+
+      it('should reject null', function () {
+        assert.throws(auth.format.bind(null, null), /argument credentials is required/)
+      })
+
+      it('should reject a number', function () {
+        assert.throws(auth.format.bind(null, 42), /argument credentials is required/)
+      })
+
+      it('should reject a string', function () {
+        assert.throws(auth.format.bind(null, ''), /argument credentials is required/)
+      })
+
+      it('should reject an object without name', function () {
+        assert.throws(auth.format.bind(null, { pass: 'bar' }), /argument credentials is required to have name and pass properties/)
+      })
+
+      it('should reject an object without pass', function () {
+        assert.throws(auth.format.bind(null, { name: 'foo' }), /argument credentials is required to have name and pass properties/)
+      })
+
+      it('should reject an object with non-string name', function () {
+        assert.throws(auth.format.bind(null, { name: 42, pass: 'bar' }), /argument credentials is required to have name and pass properties/)
+      })
+
+      it('should reject an object with non-string pass', function () {
+        assert.throws(auth.format.bind(null, { name: 'foo', pass: 42 }), /argument credentials is required to have name and pass properties/)
+      })
+    })
+  })
+
+  describe('with valid credentials', function () {
+    it('should return header', function () {
+      var header = auth.format({ name: 'foo', pass: 'bar' })
+      assert.strictEqual(header, 'Basic Zm9vOmJhcg==')
+    })
+  })
+
+  describe('with empty password', function () {
+    it('should return header', function () {
+      var header = auth.format({ name: 'foo', pass: '' })
+      assert.strictEqual(header, 'Basic Zm9vOg==')
+    })
+  })
+
+  describe('with empty userid', function () {
+    it('should return header', function () {
+      var header = auth.format({ name: '', pass: 'pass' })
+      assert.strictEqual(header, 'Basic OnBhc3M=')
+    })
+  })
+
+  describe('with empty userid and pass', function () {
+    it('should return header', function () {
+      var header = auth.format({ name: '', pass: '' })
+      assert.strictEqual(header, 'Basic Og==')
+    })
+  })
+})

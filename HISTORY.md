@@ -1,3 +1,8 @@
+unreleased
+==================
+
+  * feat: add `auth.format` for formatting credentials
+
 2.0.1 / 2018-09-19
 ==================
 
