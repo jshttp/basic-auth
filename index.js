@@ -124,6 +124,9 @@ function parse (string) {
 
 /**
  * Object to represent user credentials.
+ *
+ * @param {string} name
+ * @param {string} pass
  * @private
  */
 
