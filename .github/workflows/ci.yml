@@ -148,7 +148,7 @@ jobs:
           node-version: "25"
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Install Node.js ${{ matrix.node-version }}
       shell: bash -eo pipefail -l {0}
