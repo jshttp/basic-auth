@@ -9,6 +9,16 @@ function request (authorization) {
   }
 }
 
+function fetchRequest (authorization) {
+  return {
+    headers: {
+      get: function (name) {
+        return name === 'authorization' ? authorization : undefined
+      }
+    }
+  }
+}
+
 describe('auth(req)', function () {
   describe('arguments', function () {
     describe('req', function () {
@@ -68,6 +78,15 @@ describe('auth(req)', function () {
   describe('with valid credentials', function () {
     it('should return .name and .pass', function () {
       var req = request('basic Zm9vOmJhcg==')
+      var creds = auth(req)
+      assert.strictEqual(creds.name, 'foo')
+      assert.strictEqual(creds.pass, 'bar')
+    })
+  })
+
+  describe('with valid credentials [fetch API Request]', function () {
+    it('should return .name and .pass', function () {
+      var req = fetchRequest('basic Zm9vOmJhcg==')
       var creds = auth(req)
       assert.strictEqual(creds.name, 'foo')
       assert.strictEqual(creds.pass, 'bar')
