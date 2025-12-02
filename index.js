@@ -22,6 +22,7 @@ var Buffer = require('safe-buffer').Buffer
 
 module.exports = auth
 module.exports.parse = parse
+module.exports.format = format
 
 /**
  * RegExp for basic auth credentials
@@ -120,6 +121,29 @@ function parse (string) {
 
   // return credentials object
   return new Credentials(userPass[1], userPass[2])
+}
+
+/**
+ * Format Basic Authorization Header
+ *
+ * @param {Credentials} credentials
+ * @return {string}
+ * @public
+ */
+function format (credentials) {
+  if (!credentials) {
+    throw new TypeError('argument credentials is required')
+  }
+
+  if (typeof credentials !== 'object') {
+    throw new TypeError('argument credentials is required to be an object')
+  }
+
+  if (typeof credentials.name !== 'string' || typeof credentials.pass !== 'string') {
+    throw new TypeError('argument credentials is required to have name and pass properties')
+  }
+
+  return 'Basic ' + Buffer.from(credentials.name + ':' + credentials.pass).toString('base64')
 }
 
 /**
