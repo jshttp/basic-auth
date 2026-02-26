@@ -1,8 +1,7 @@
 {
   "name": "basic-auth",
-  "description": "node.js basic auth parser",
   "version": "2.0.1",
-  "license": "MIT",
+  "description": "node.js basic auth parser",
   "keywords": [
     "basic",
     "auth",
@@ -10,32 +9,38 @@
     "basicauth"
   ],
   "repository": "jshttp/basic-auth",
-  "dependencies": {
-    "safe-buffer": "5.2.1"
+  "license": "MIT",
+  "type": "commonjs",
+  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "ts-scripts build",
+    "format": "ts-scripts format",
+    "lint": "ts-scripts lint",
+    "prepare": "ts-scripts install && npm run build",
+    "specs": "ts-scripts specs",
+    "test": "ts-scripts test"
   },
   "devDependencies": {
-    "eslint": "5.6.0",
-    "eslint-config-standard": "12.0.0",
-    "eslint-plugin-import": "2.31.0",
-    "eslint-plugin-markdown": "1.0.2",
-    "eslint-plugin-node": "7.0.1",
-    "eslint-plugin-promise": "4.3.1",
-    "eslint-plugin-standard": "4.1.0",
-    "mocha": "10.8.2",
-    "nyc": "15.1.0"
+    "@borderless/ts-scripts": "^0.15.0",
+    "@types/node": "^20.19.35",
+    "@vitest/coverage-v8": "^3.2.4",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   },
-  "files": [
-    "HISTORY.md",
-    "LICENSE",
-    "index.js"
-  ],
   "engines": {
-    "node": ">= 0.8"
+    "node": ">=18"
   },
-  "scripts": {
-    "lint": "eslint --plugin markdown --ext js,md .",
-    "test": "mocha --reporter spec --bail --check-leaks test/",
-    "test-ci": "nyc --reporter=lcov --reporter=text npm test",
-    "test-cov": "nyc --reporter=html --reporter=text npm test"
+  "ts-scripts": {
+    "dist": [
+      "dist"
+    ],
+    "project": [
+      "tsconfig.build.json"
+    ]
   }
 }
