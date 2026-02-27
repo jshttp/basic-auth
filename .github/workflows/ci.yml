@@ -12,7 +12,8 @@ jobs:
       matrix:
         node-version:
           - 18
-          - '*'
+          - 25 # Node.js 25 support Uint8Array.fromBase64()
+          - 'lts/*'
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
