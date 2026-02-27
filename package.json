@@ -28,7 +28,6 @@
   "devDependencies": {
     "@borderless/ts-scripts": "^0.15.0",
     "@size-limit/preset-small-lib": "^12.1.0",
-    "@types/node": "^20.19.35",
     "@vitest/coverage-v8": "^3.2.4",
     "size-limit": "^12.1.0",
     "typescript": "^5.9.3",
@@ -40,9 +39,6 @@
   "size-limit": [
     {
       "path": "dist/index.js",
-      "ignore": [
-        "node:buffer"
-      ],
       "limit": "1 kB"
     }
   ],

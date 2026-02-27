@@ -7,7 +7,7 @@
     "outDir": "dist",
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "types": ["node"]
+    "types": ["./globals.d.ts"]
   },
   "include": ["src/**/*"]
 }

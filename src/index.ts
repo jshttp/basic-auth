@@ -6,7 +6,7 @@
  * MIT Licensed
  */
 
-import { Buffer } from 'node:buffer';
+import { decodeBase64, encodeBase64 } from './base64.js';
 
 /**
  * Object to represent user credentials.
@@ -104,19 +104,3 @@ const CREDENTIALS_REGEXP =
  * @private
  */
 const CONTROL_CHARS_REGEXP = /[\x00-\x1F\x7F]/;
-
-/**
- * Decode base64 string.
- * @private
- */
-function decodeBase64(str: string): string {
-  return Buffer.from(str, 'base64').toString();
-}
-
-/**
- * Encode string to base64.
- * @private
- */
-function encodeBase64(str: string): string {
-  return Buffer.from(str, 'utf-8').toString('base64');
-}
