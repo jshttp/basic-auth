@@ -6,8 +6,6 @@
  * MIT Licensed
  */
 
-import { Buffer } from 'node:buffer';
-
 /**
  * Object to represent user credentials.
  */
@@ -70,14 +68,45 @@ const CREDENTIALS_REGEXP =
 
 const USER_PASS_REGEXP = /^([^:]*):(.*)$/;
 
+type Uint8ArrayWithBase64 = typeof Uint8Array & {
+  fromBase64?: (str: string) => Uint8Array;
+};
+
+type BufferLike = {
+  from(
+    input: string,
+    encoding: 'base64',
+  ): { toString(encoding: 'utf-8'): string };
+};
+
+const NodeBuffer = (globalThis as any).Buffer as BufferLike | undefined;
+
+const textDecoder = new TextDecoder('utf-8');
+
 /**
  * Decode base64 string.
  * @private
  */
+const decodeBase64: (str: string) => string = (() => {
+  // 1) Node.js (fast path)
+  if (typeof NodeBuffer?.from === 'function') {
+    return (str: string) => NodeBuffer.from(str, 'base64').toString('utf-8');
+  }
 
-function decodeBase64(str: string): string {
-  return Buffer.from(str, 'base64').toString();
-}
+  // 2) Modern Web / some runtimes
+  if (typeof (Uint8Array as Uint8ArrayWithBase64).fromBase64 === 'function') {
+    return (str: string) =>
+      textDecoder.decode((Uint8Array as Uint8ArrayWithBase64).fromBase64!(str));
+  }
+
+  // 3) Browser fallback
+  return (str: string) => {
+    const binary = atob(str);
+    return textDecoder.decode(
+      Uint8Array.from(binary, (char) => char.charCodeAt(0)),
+    );
+  };
+})();
 
 class CredentialsImpl implements Credentials {
   name: string;

@@ -18,6 +18,7 @@
     "dist/"
   ],
   "scripts": {
+    "bench": "vitest bench",
     "build": "ts-scripts build",
     "format": "ts-scripts format",
     "lint": "ts-scripts lint",
@@ -27,7 +28,6 @@
   },
   "devDependencies": {
     "@borderless/ts-scripts": "^0.15.0",
-    "@types/node": "^20.19.35",
     "@vitest/coverage-v8": "^3.2.4",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
