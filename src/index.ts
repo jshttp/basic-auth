@@ -88,15 +88,15 @@ const textDecoder = new TextDecoder('utf-8');
  * @private
  */
 const decodeBase64: (str: string) => string = (() => {
-  // 1) Modern Web / some runtimes
+  // 1) Node.js (fast path)
+  if (typeof NodeBuffer?.from === 'function') {
+    return (str: string) => NodeBuffer.from(str, 'base64').toString('utf-8');
+  }
+
+  // 2) Modern Web / some runtimes
   if (typeof (Uint8Array as Uint8ArrayWithBase64).fromBase64 === 'function') {
     return (str: string) =>
       textDecoder.decode((Uint8Array as Uint8ArrayWithBase64).fromBase64!(str));
-  }
-
-  // 2) Node.js (fast path)
-  if (typeof NodeBuffer?.from === 'function') {
-    return (str: string) => NodeBuffer.from(str, 'base64').toString('utf-8');
   }
 
   // 3) Browser fallback
