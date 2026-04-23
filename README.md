@@ -23,16 +23,10 @@ $ npm install basic-auth
 <!-- eslint-disable no-unused-vars -->
 
 ```js
-var auth = require('basic-auth');
+const { parse } = require('basic-auth');
 ```
 
-### auth(req)
-
-Get the basic auth credentials from the given request. The `Authorization`
-header is parsed and if the header is invalid, `undefined` is returned,
-otherwise an object with `name` and `pass` properties.
-
-### auth.parse(string)
+### parse(string)
 
 Parse a basic auth authorization header string. This will return an object
 with `name` and `pass` properties, or `undefined` if the string is invalid.
@@ -44,25 +38,24 @@ auth authorization header string.
 
 ## Example
 
-Pass a Node.js request object to the module export. If parsing fails
+Pass a Basic auth header to the `parse()` method. If parsing fails
 `undefined` is returned, otherwise an object with `.name` and `.pass`.
 
 <!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
-var auth = require('basic-auth');
-var user = auth(req);
+const { parse } = require('basic-auth');
+const user = parse(req.headers.authorization);
 // => { name: 'something', pass: 'whatever' }
 ```
 
-A header string from any other location can also be parsed with
-`auth.parse`, for example a `Proxy-Authorization` header:
+A header string from any other location can also be parsed for example a `Proxy-Authorization` header:
 
 <!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
-var auth = require('basic-auth');
-var user = auth.parse(req.getHeader('Proxy-Authorization'));
+const { parse } = require('basic-auth');
+const user = parse(req.getHeader('Proxy-Authorization'));
 ```
 
 A credentials object can be formatted with `auth.format` as
@@ -80,13 +73,13 @@ var authHeader = auth.format(credentials);
 ### With vanilla node.js http server
 
 ```js
-var http = require('http');
-var auth = require('basic-auth');
-var compare = require('tsscmp');
+const http = require('node:http');
+const { parse } = require('basic-auth');
+const compare = require('tsscmp');
 
 // Create server
-var server = http.createServer(function (req, res) {
-  var credentials = auth(req);
+const server = http.createServer(function (req, res) {
+  const credentials = parse(req.headers.authorization);
 
   // Check credentials
   // The "check" function will typically be against your user store
@@ -101,7 +94,7 @@ var server = http.createServer(function (req, res) {
 
 // Basic function to validate credentials for example
 function check(name, pass) {
-  var valid = true;
+  let valid = true;
 
   // Simple method to prevent short-circuit and use timing-safe compare
   valid = compare(name, 'john') && valid;
