@@ -20,8 +20,6 @@ $ npm install basic-auth
 
 ## API
 
-<!-- eslint-disable no-unused-vars -->
-
 ```js
 const { parse } = require('basic-auth');
 ```
