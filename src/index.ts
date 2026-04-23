@@ -8,74 +8,43 @@
 
 import { Buffer } from 'node:buffer';
 
-export = auth;
+/**
+ * Object to represent user credentials.
+ */
+export interface Credentials {
+  name: string;
+  pass: string;
+}
 
 /**
- * Parse the Authorization header field of a request
+ * Parse basic auth to object.
+ *
+ * @param {string} string
+ * @return {object}
  * @public
  */
 
-function auth(req: auth.IncomingMessageLike): auth.Credentials | undefined {
-  if (!req) {
-    throw new TypeError('argument req is required');
+export function parse(string: string): Credentials | undefined {
+  if (typeof string !== 'string') {
+    return undefined;
   }
-
-  if (typeof req !== 'object') {
-    throw new TypeError('argument req is required to be an object');
-  }
-
-  // get header
-  const header = getAuthorization(req);
 
   // parse header
-  return auth.parse(header ?? '');
-}
+  const match = CREDENTIALS_REGEXP.exec(string);
 
-namespace auth {
-  /**
-   * Object to represent user credentials.
-   */
-  export interface Credentials {
-    name: string;
-    pass: string;
+  if (!match) {
+    return undefined;
   }
 
-  export interface IncomingMessageLike {
-    headers?: {
-      authorization?: string;
-    };
+  // decode user pass
+  const userPass = USER_PASS_REGEXP.exec(decodeBase64(match[1]));
+
+  if (!userPass) {
+    return undefined;
   }
 
-  /**
-   * Parse basic auth to object.
-   *
-   * @param {string} string
-   * @return {object}
-   * @public
-   */
-
-  export function parse(string: string): auth.Credentials | undefined {
-    if (typeof string !== 'string') {
-      return undefined;
-    }
-
-    // parse header
-    const match = CREDENTIALS_REGEXP.exec(string);
-
-    if (!match) {
-      return undefined;
-    }
-
-    // decode user pass
-    const userPass = USER_PASS_REGEXP.exec(decodeBase64(match[1]));
-
-    if (!userPass) {
-      return undefined;
-    }
-
-    // return credentials object
-    return new CredentialsImpl(userPass[1], userPass[2]);
-  }
+  // return credentials object
+  return new CredentialsImpl(userPass[1], userPass[2]);
 }
 
 /**
@@ -110,20 +79,7 @@ function decodeBase64(str: string): string {
   return Buffer.from(str, 'base64').toString();
 }
 
-/**
- * Get the Authorization header from request object.
- * @private
- */
-
-function getAuthorization(req: auth.IncomingMessageLike) {
-  if (!req.headers || typeof req.headers !== 'object') {
-    throw new TypeError('argument req is required to have headers property');
-  }
-
-  return req.headers.authorization;
-}
-
-class CredentialsImpl implements auth.Credentials {
+class CredentialsImpl implements Credentials {
   name: string;
   pass: string;
 
