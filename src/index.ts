@@ -38,11 +38,10 @@ export function parse(string: string): Credentials | undefined {
   const colonIndex = userPass.indexOf(':');
   if (colonIndex === -1) return undefined;
 
-  // return credentials object
-  return new CredentialsImpl(
-    userPass.slice(0, colonIndex),
-    userPass.slice(colonIndex + 1),
-  );
+  return {
+    name: userPass.slice(0, colonIndex),
+    pass: userPass.slice(colonIndex + 1),
+  };
 }
 
 /**
@@ -64,14 +63,4 @@ const CREDENTIALS_REGEXP =
 
 function decodeBase64(str: string): string {
   return Buffer.from(str, 'base64').toString();
-}
-
-class CredentialsImpl implements Credentials {
-  name: string;
-  pass: string;
-
-  constructor(name: string, pass: string) {
-    this.name = name;
-    this.pass = pass;
-  }
 }
