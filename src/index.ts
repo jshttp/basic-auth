@@ -31,20 +31,17 @@ export function parse(string: string): Credentials | undefined {
 
   // parse header
   const match = CREDENTIALS_REGEXP.exec(string);
-
-  if (!match) {
-    return undefined;
-  }
+  if (!match) return undefined;
 
   // decode user pass
-  const userPass = USER_PASS_REGEXP.exec(decodeBase64(match[1]));
+  const userPass = decodeBase64(match[1]);
+  const colonIndex = userPass.indexOf(':');
+  if (colonIndex === -1) return undefined;
 
-  if (!userPass) {
-    return undefined;
-  }
-
-  // return credentials object
-  return new CredentialsImpl(userPass[1], userPass[2]);
+  return {
+    name: userPass.slice(0, colonIndex),
+    pass: userPass.slice(colonIndex + 1),
+  };
 }
 
 /**
@@ -60,31 +57,10 @@ const CREDENTIALS_REGEXP =
   /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9._~+/-]+=*) *$/;
 
 /**
- * RegExp for basic auth user/pass
- *
- * user-pass   = userid ":" password
- * userid      = *<TEXT excluding ":">
- * password    = *TEXT
- * @private
- */
-
-const USER_PASS_REGEXP = /^([^:]*):(.*)$/;
-
-/**
  * Decode base64 string.
  * @private
  */
 
 function decodeBase64(str: string): string {
   return Buffer.from(str, 'base64').toString();
-}
-
-class CredentialsImpl implements Credentials {
-  name: string;
-  pass: string;
-
-  constructor(name: string, pass: string) {
-    this.name = name;
-    this.pass = pass;
-  }
 }
