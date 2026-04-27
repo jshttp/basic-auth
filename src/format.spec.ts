@@ -97,28 +97,22 @@ describe('format(credentials)', function () {
 
   describe('with empty password', function () {
     it('should throw', function () {
-      assert.throws(
-        format.bind(null, { name: 'foo', pass: '' }),
-        /argument credentials.name and credentials.pass must not be empty/,
-      );
+      const header = format({ name: 'foo', pass: '' });
+      assert.strictEqual(header, 'Basic Zm9vOg==');
     });
   });
 
   describe('with empty userid', function () {
     it('should throw', function () {
-      assert.throws(
-        format.bind(null, { name: '', pass: 'pass' }),
-        /argument credentials.name and credentials.pass must not be empty/,
-      );
+      const header = format({ name: '', pass: 'pass' });
+      assert.strictEqual(header, 'Basic OnBhc3M=');
     });
   });
 
   describe('with empty userid and pass', function () {
     it('should throw', function () {
-      assert.throws(
-        format.bind(null, { name: '', pass: '' }),
-        /argument credentials.name and credentials.pass must not be empty/,
-      );
+      const header = format({ name: '', pass: '' });
+      assert.strictEqual(header, 'Basic Og==');
     });
   });
 });

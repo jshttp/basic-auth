@@ -69,12 +69,6 @@ export function format(credentials: Credentials): string {
     );
   }
 
-  if (credentials.name.length === 0 || credentials.pass.length === 0) {
-    throw new TypeError(
-      'argument credentials.name and credentials.pass must not be empty',
-    );
-  }
-
   if (
     credentials.name.includes(':') || // RFC 7617 disallows colon in username
     CONTROL_CHARS_REGEXP.test(credentials.name)
