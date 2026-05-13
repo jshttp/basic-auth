@@ -23,19 +23,31 @@
     "format": "ts-scripts format",
     "lint": "ts-scripts lint",
     "prepare": "ts-scripts install && npm run build",
+    "size": "size-limit",
     "specs": "ts-scripts specs",
-    "test": "ts-scripts test"
+    "test": "ts-scripts test && npm run size"
   },
   "devDependencies": {
     "@borderless/ts-scripts": "^0.15.0",
+    "@size-limit/preset-small-lib": "^12.1.0",
     "@types/node": "^20.19.35",
     "@vitest/coverage-v8": "^3.2.4",
+    "size-limit": "^12.1.0",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">=18"
   },
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "ignore": [
+        "node:buffer"
+      ],
+      "limit": "1 kB"
+    }
+  ],
   "ts-scripts": {
     "dist": [
       "dist"
