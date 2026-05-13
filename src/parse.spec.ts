@@ -26,6 +26,12 @@ describe('parse(string)', function () {
     });
   });
 
+  describe('with invalid base64 credentials', function () {
+    it('should return undefined', function () {
+      assert.strictEqual(parse('basic invalidbase64'), undefined);
+    });
+  });
+
   describe('with valid credentials', function () {
     it('should return .name and .pass', function () {
       var creds = parse('basic Zm9vOmJhcg==');

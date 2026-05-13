@@ -6,7 +6,8 @@
  * MIT Licensed
  */
 
-import { Buffer } from 'node:buffer';
+import { utf8fromString, utf8toString } from '@exodus/bytes/utf8.js';
+import { fromBase64, toBase64 } from '@exodus/bytes/base64.js';
 
 /**
  * Object to represent user credentials.
@@ -34,7 +35,12 @@ export function parse(string: string): Credentials | undefined {
   if (!match) return undefined;
 
   // decode user pass
-  const userPass = decodeBase64(match[1]);
+  let userPass: string;
+  try {
+    userPass = decodeBase64(match[1]);
+  } catch {
+    return undefined;
+  }
   const colonIndex = userPass.indexOf(':');
   if (colonIndex === -1) return undefined;
 
@@ -110,7 +116,7 @@ const CONTROL_CHARS_REGEXP = /[\x00-\x1F\x7F]/;
  * @private
  */
 function decodeBase64(str: string): string {
-  return Buffer.from(str, 'base64').toString();
+  return utf8toString(fromBase64(str));
 }
 
 /**
@@ -118,5 +124,5 @@ function decodeBase64(str: string): string {
  * @private
  */
 function encodeBase64(str: string): string {
-  return Buffer.from(str, 'utf-8').toString('base64');
+  return toBase64(utf8fromString(str));
 }
