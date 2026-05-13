@@ -1,7 +1,7 @@
 {
   "name": "basic-auth",
   "version": "2.0.1",
-  "description": "node.js basic auth parser",
+  "description": "Basic auth parser",
   "keywords": [
     "basic",
     "auth",
@@ -10,10 +10,8 @@
   ],
   "repository": "jshttp/basic-auth",
   "license": "MIT",
-  "type": "commonjs",
+  "type": "module",
   "exports": "./dist/index.js",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist/"
   ],

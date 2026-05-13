@@ -1,5 +1,5 @@
 import { describe, bench } from 'vitest';
-import { parse } from './index';
+import { parse } from './index.js';
 
 describe('parse', () => {
   bench('basic auth header', () => {
