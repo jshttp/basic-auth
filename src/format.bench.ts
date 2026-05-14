@@ -1,5 +1,5 @@
 import { bench, describe } from 'vitest';
-import { format } from './index';
+import { format } from './index.js';
 
 describe('format', () => {
   bench('format with simple credentials', () => {

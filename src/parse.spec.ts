@@ -1,5 +1,5 @@
 import { describe, it, assert } from 'vitest';
-import { parse } from './index';
+import { parse } from './index.js';
 
 describe('parse(string)', function () {
   describe('with undefined string', function () {
