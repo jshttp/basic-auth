@@ -6,7 +6,7 @@
  * MIT Licensed
  */
 
-import { decodeBase64, encodeBase64 } from './base64.js';
+import { base64 } from './base64.js';
 
 /**
  * Object to represent user credentials.
@@ -34,7 +34,7 @@ export function parse(string: string): Credentials | undefined {
   if (!match) return undefined;
 
   // decode user pass
-  const userPass = decodeBase64(match[1]);
+  const userPass = base64.decode(match[1]);
   const colonIndex = userPass.indexOf(':');
   if (colonIndex === -1) return undefined;
 
@@ -84,7 +84,7 @@ export function format(credentials: Credentials): string {
     );
   }
 
-  return 'Basic ' + encodeBase64(credentials.name + ':' + credentials.pass);
+  return 'Basic ' + base64.encode(credentials.name + ':' + credentials.pass);
 }
 
 /**

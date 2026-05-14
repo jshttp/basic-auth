@@ -79,17 +79,19 @@ for (const payload of payloads) {
 describe('decode base64 for basic-auth payloads', () => {
   for (const payload of payloads) {
     describe(payload.name, () => {
-      if (hasUint8ArrayFromBase64) {
-        bench('Uint8Array.fromBase64 + TextDecoder', () => {
+      bench.skipIf(!hasUint8ArrayFromBase64)(
+        'Uint8Array.fromBase64 + TextDecoder',
+        () => {
           decodeBase64WithUint8Array(payload.encoded);
-        });
-      }
+        },
+      );
 
-      if (hasNodeBuffer) {
-        bench('Buffer.from(base64).toString(utf-8)', () => {
+      bench.skipIf(!hasNodeBuffer)(
+        'Buffer.from(base64).toString(utf-8)',
+        () => {
           decodeBase64WithNodeBuffer(payload.encoded);
-        });
-      }
+        },
+      );
 
       bench('atob + Uint8Array.from + TextDecoder', () => {
         decodeBase64WithAtob(payload.encoded);
