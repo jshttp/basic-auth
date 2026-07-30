@@ -12,6 +12,7 @@ jobs:
       matrix:
         node-version:
           - 22
+          - 26 # Node.js 26 support Uint8Array.fromBase64()
           - '*'
     steps:
       - uses: actions/checkout@v6
