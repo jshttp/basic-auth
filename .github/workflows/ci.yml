@@ -13,13 +13,13 @@ jobs:
         node-version:
           - 22
           - 26 # Node.js 26 support Uint8Array.fromBase64()
-          - '*'
+          - latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
+      - run: npm ci
       - run: npm test
       - uses: codecov/codecov-action@v5
         with:
