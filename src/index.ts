@@ -25,10 +25,6 @@ export interface Credentials {
  */
 
 export function parse(string: string): Credentials | undefined {
-  if (typeof string !== 'string') {
-    return undefined;
-  }
-
   // parse header
   const match = CREDENTIALS_REGEXP.exec(string);
   if (!match) return undefined;
@@ -52,23 +48,6 @@ export function parse(string: string): Credentials | undefined {
  * @public
  */
 export function format(credentials: Credentials): string {
-  if (!credentials) {
-    throw new TypeError('argument credentials is required');
-  }
-
-  if (typeof credentials !== 'object') {
-    throw new TypeError('argument credentials is required to be an object');
-  }
-
-  if (
-    typeof credentials.name !== 'string' ||
-    typeof credentials.pass !== 'string'
-  ) {
-    throw new TypeError(
-      'argument credentials is required to have name and pass properties',
-    );
-  }
-
   if (
     credentials.name.includes(':') || // RFC 7617 disallows colon in username
     CONTROL_CHARS_REGEXP.test(credentials.name)
