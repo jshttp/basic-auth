@@ -52,12 +52,8 @@ export function parse(string: string): Credentials | undefined {
  * @public
  */
 export function format(credentials: Credentials): string {
-  if (!credentials) {
-    throw new TypeError('argument credentials is required');
-  }
-
-  if (typeof credentials !== 'object') {
-    throw new TypeError('argument credentials is required to be an object');
+  if (typeof credentials !== 'object' || credentials === null) {
+    throw new TypeError('credentials is required to be an object');
   }
 
   if (
@@ -65,26 +61,24 @@ export function format(credentials: Credentials): string {
     typeof credentials.pass !== 'string'
   ) {
     throw new TypeError(
-      'argument credentials is required to have name and pass properties',
+      'credentials is required to have name and pass properties',
     );
   }
 
-  if (
-    credentials.name.includes(':') || // RFC 7617 disallows colon in username
-    CONTROL_CHARS_REGEXP.test(credentials.name)
-  ) {
+  // RFC 7617 disallows colon in username
+  if (credentials.name.includes(':')) {
+    throw new TypeError('name must not contain a colon');
+  }
+
+  const str = credentials.name + ':' + credentials.pass;
+
+  if (CONTROL_CHARS_REGEXP.test(str)) {
     throw new TypeError(
-      'argument credentials.name must not contain a colon or control characters',
+      'argument credentials must not contain control characters',
     );
   }
 
-  if (CONTROL_CHARS_REGEXP.test(credentials.pass)) {
-    throw new TypeError(
-      'argument credentials.pass must not contain control characters',
-    );
-  }
-
-  return 'Basic ' + base64.encode(credentials.name + ':' + credentials.pass);
+  return 'Basic ' + base64.encode(str);
 }
 
 /**
