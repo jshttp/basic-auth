@@ -35,7 +35,7 @@
     "vitest": "^4.1.6"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "size-limit": [
     {
