@@ -26,7 +26,7 @@ export interface Credentials {
 
 export function parse(string: string): Credentials | undefined {
   if (typeof string !== 'string') {
-    return undefined;
+    throw new TypeError('Expected a string');
   }
 
   // parse header
@@ -53,28 +53,26 @@ export function parse(string: string): Credentials | undefined {
  */
 export function format(credentials: Credentials): string {
   if (typeof credentials !== 'object' || credentials === null) {
-    throw new TypeError('"credentials" must be an object');
+    throw new TypeError('Expected an object');
   }
 
   if (
     typeof credentials.name !== 'string' ||
     typeof credentials.pass !== 'string'
   ) {
-    throw new TypeError(
-      '"credentials" must have string properties "name" and "pass"',
-    );
+    throw new TypeError('Object must have string properties "name" and "pass"');
   }
 
   // RFC 7617 disallows colon in username
   if (credentials.name.includes(':')) {
-    throw new TypeError('"name" must not contain a colon');
+    throw new TypeError('Object "name" must not contain a colon');
   }
 
   const str = credentials.name + ':' + credentials.pass;
 
   if (CONTROL_CHARS_REGEXP.test(str)) {
     throw new TypeError(
-      '"name" and "pass" must not contain control characters',
+      'Object "name" and "pass" must not contain control characters',
     );
   }
 
