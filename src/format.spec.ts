@@ -5,10 +5,7 @@ describe('format(credentials)', function () {
   describe('arguments', function () {
     describe('credentials', function () {
       it('should be required', function () {
-        assert.throws(
-          () => (format as any)(),
-          /argument credentials is required/,
-        );
+        assert.throws(() => (format as any)(), /Expected an object/);
       });
 
       it('should accept credentials', function () {
@@ -17,65 +14,56 @@ describe('format(credentials)', function () {
       });
 
       it('should reject null', function () {
-        assert.throws(
-          format.bind(null, null as any),
-          /argument credentials is required/,
-        );
+        assert.throws(format.bind(null, null as any), /Expected an object/);
       });
 
       it('should reject a number', function () {
-        assert.throws(
-          format.bind(null, 42 as any),
-          /argument credentials is required/,
-        );
+        assert.throws(format.bind(null, 42 as any), /Expected an object/);
       });
 
       it('should reject a string', function () {
-        assert.throws(
-          format.bind(null, '' as any),
-          /argument credentials is required/,
-        );
+        assert.throws(format.bind(null, '' as any), /Expected an object/);
       });
 
       it('should reject an object without name', function () {
         assert.throws(
           format.bind(null, { pass: 'bar' } as any),
-          /argument credentials is required to have name and pass properties/,
+          /Object must have string properties "name" and "pass"/,
         );
       });
 
       it('should reject an object without pass', function () {
         assert.throws(
           format.bind(null, { name: 'foo' } as any),
-          /argument credentials is required to have name and pass properties/,
+          /Object must have string properties "name" and "pass"/,
         );
       });
 
       it('should reject an object with non-string name', function () {
         assert.throws(
           format.bind(null, { name: 42, pass: 'bar' } as any),
-          /argument credentials is required to have name and pass properties/,
+          /Object must have string properties "name" and "pass"/,
         );
       });
 
       it('should reject an object with non-string pass', function () {
         assert.throws(
           format.bind(null, { name: 'foo', pass: 42 } as any),
-          /argument credentials is required to have name and pass properties/,
+          /Object must have string properties "name" and "pass"/,
         );
       });
 
       it('should reject userid containing colon', function () {
         assert.throws(
           format.bind(null, { name: 'foo:bar', pass: 'baz' }),
-          /must not contain a colon or control characters/,
+          /must not contain a colon/,
         );
       });
 
       it('should reject control chars in userid', function () {
         assert.throws(
           format.bind(null, { name: 'foo\u0000bar', pass: 'baz' }),
-          /must not contain a colon or control characters/,
+          /must not contain control characters/,
         );
       });
 
@@ -96,21 +84,21 @@ describe('format(credentials)', function () {
   });
 
   describe('with empty password', function () {
-    it('should throw', function () {
+    it('should return header', function () {
       const header = format({ name: 'foo', pass: '' });
       assert.strictEqual(header, 'Basic Zm9vOg==');
     });
   });
 
   describe('with empty userid', function () {
-    it('should throw', function () {
+    it('should return header', function () {
       const header = format({ name: '', pass: 'pass' });
       assert.strictEqual(header, 'Basic OnBhc3M=');
     });
   });
 
   describe('with empty userid and pass', function () {
-    it('should throw', function () {
+    it('should return header', function () {
       const header = format({ name: '', pass: '' });
       assert.strictEqual(header, 'Basic Og==');
     });

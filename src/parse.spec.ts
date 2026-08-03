@@ -2,9 +2,9 @@ import { describe, it, assert } from 'vitest';
 import { parse } from './index.js';
 
 describe('parse(string)', function () {
-  describe('with undefined string', function () {
-    it('should return undefined', function () {
-      assert.strictEqual((parse as any)(), undefined);
+  describe('with non string', function () {
+    it('should throw', function () {
+      assert.throws(() => parse(undefined as any), /Expected a string/);
     });
   });
 
