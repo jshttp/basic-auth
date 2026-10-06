@@ -41,7 +41,7 @@ Pass a Basic auth header to the `parse()` method. If parsing fails
 
 ```js
 const { parse } = require('basic-auth');
-const user = parse(req.headers.authorization);
+const user = parse(req.headers.authorization ?? '');
 // => { name: 'something', pass: 'whatever' }
 ```
 
@@ -71,7 +71,7 @@ const compare = require('tsscmp');
 
 // Create server
 const server = http.createServer(function (req, res) {
-  const credentials = parse(req.headers.authorization);
+  const credentials = parse(req.headers.authorization ?? '');
 
   // Check credentials
   // The "check" function will typically be against your user store
