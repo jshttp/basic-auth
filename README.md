@@ -49,7 +49,7 @@ A header string from any other location can also be parsed for example a `Proxy-
 
 ```js
 const { parse } = require('basic-auth');
-const user = parse(req.getHeader('Proxy-Authorization'));
+const user = parse(req.getHeader('Proxy-Authorization') ?? '');
 ```
 
 A credentials object can be formatted with `auth.format` as
