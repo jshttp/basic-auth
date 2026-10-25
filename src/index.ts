@@ -34,7 +34,12 @@ export function parse(string: string): Credentials | undefined {
   if (!match) return undefined;
 
   // decode user pass
-  const userPass = base64.decode(match[1]);
+  let userPass: string;
+  try {
+    userPass = base64.decode(match[1]);
+  } catch {
+    return undefined;
+  }
   const colonIndex = userPass.indexOf(':');
   if (colonIndex === -1) return undefined;
 
