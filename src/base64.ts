@@ -15,12 +15,8 @@ export const base64 = (() => {
       return bytes.toBase64();
     },
     decode: (str: string) => {
-      try {
-        const bytes = Uint8Array.fromBase64(str);
-        return textDecoder.decode(bytes);
-      } catch {
-        return '';
-      }
+      const bytes = Uint8Array.fromBase64(str);
+      return textDecoder.decode(bytes);
     },
   };
 })();

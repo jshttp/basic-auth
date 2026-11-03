@@ -1,4 +1,4 @@
-import { afterAll, assert, beforeAll, describe, it, vi } from 'vitest';
+import { afterAll, expect, beforeAll, describe, it, vi } from 'vitest';
 
 const importBase64 = async () => {
   vi.resetModules();
@@ -34,8 +34,6 @@ const DECODE_CASES = [
   [' \tZm9v\r\nOmJhcg==\f', 'foo:bar'],
   ['Zh==', 'f'],
   ['Zm9=', 'fo'],
-  ['Y', ''],
-  ['!', ''],
   ['/w==', '\ufffd'],
   ['wyg=', '\ufffd('],
   ['4oI=', '\ufffd'],
@@ -54,18 +52,15 @@ describe.skipIf(typeof Buffer === 'undefined')('base64 (Buffer)', () => {
   });
 
   it.each(ENCODE_CASES)('encodes %j as %j', (value, encoded) => {
-    assert.strictEqual(base64.encode(value), encoded);
+    expect(base64.encode(value)).toEqual(encoded);
   });
 
   it.each(DECODE_CASES)('decodes %j as %j', (encoded, value) => {
-    assert.strictEqual(base64.decode(encoded), value);
+    expect(base64.decode(encoded)).toEqual(value);
   });
 
   it.each(ENCODE_CASES)('round-trips %j', (value) => {
-    assert.strictEqual(
-      base64.decode(base64.encode(value)),
-      value.toWellFormed(),
-    );
+    expect(base64.decode(base64.encode(value))).toEqual(value.toWellFormed());
   });
 });
 
@@ -83,17 +78,14 @@ describe.skipIf(!Uint8Array.prototype.toBase64)('base64 (Uint8Array)', () => {
   });
 
   it.each(ENCODE_CASES)('encodes %j as %j', (value, encoded) => {
-    assert.strictEqual(base64.encode(value), encoded);
+    expect(base64.encode(value)).toEqual(encoded);
   });
 
   it.each(DECODE_CASES)('decodes %j as %j', (encoded, value) => {
-    assert.strictEqual(base64.decode(encoded), value);
+    expect(base64.decode(encoded)).toEqual(value);
   });
 
   it.each(ENCODE_CASES)('round-trips %j', (value) => {
-    assert.strictEqual(
-      base64.decode(base64.encode(value)),
-      value.toWellFormed(),
-    );
+    expect(base64.decode(base64.encode(value))).toEqual(value.toWellFormed());
   });
 });
