@@ -26,6 +26,31 @@ describe('parse(string)', function () {
     });
   });
 
+  describe('with non-base64 characters', function () {
+    it.each(['.', '_', '~', '-', '!'])(
+      'should reject embedded %j',
+      function (character) {
+        assert.strictEqual(parse(`Basic Zm9v${character}OmJhcg==`), undefined);
+      },
+    );
+
+    it.each(['77-_Og==', '77-9Og==', '77+/Og==!'])(
+      'should reject %j',
+      function (credentials) {
+        assert.strictEqual(parse(`Basic ${credentials}`), undefined);
+      },
+    );
+  });
+
+  describe('with standard base64 alphabet symbols', function () {
+    it('should accept plus and slash', function () {
+      assert.deepEqual(parse('Basic 77+/Og=='), {
+        name: '\uffff',
+        pass: '',
+      });
+    });
+  });
+
   describe('with valid credentials', function () {
     it('should return .name and .pass', function () {
       var creds = parse('basic Zm9vOmJhcg==');

@@ -7,7 +7,7 @@ export const base64 = (() => {
   }
 
   const textEncoder = new TextEncoder();
-  const textDecoder = new TextDecoder();
+  const textDecoder = new TextDecoder('utf-8', { ignoreBOM: true });
 
   return {
     encode: (str: string) => {
@@ -15,8 +15,12 @@ export const base64 = (() => {
       return bytes.toBase64();
     },
     decode: (str: string) => {
-      const bytes = Uint8Array.fromBase64(str);
-      return textDecoder.decode(bytes);
+      try {
+        const bytes = Uint8Array.fromBase64(str);
+        return textDecoder.decode(bytes);
+      } catch {
+        return '';
+      }
     },
   };
 })();

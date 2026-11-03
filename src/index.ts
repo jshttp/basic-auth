@@ -82,14 +82,13 @@ export function format(credentials: Credentials): string {
 /**
  * RegExp for basic auth credentials
  *
- * credentials = auth-scheme 1*SP token68
+ * credentials = auth-scheme 1*SP base64
  * auth-scheme = "Basic" ; case insensitive
- * token68     = 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"="
+ * base64      = 1*( ALPHA / DIGIT / "+" / "/" ) *"="
  * @private
  */
 
-const CREDENTIALS_REGEXP =
-  /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9._~+/-]+=*) *$/;
+const CREDENTIALS_REGEXP = /^ *Basic +([A-Za-z0-9+/]+=*) *$/;
 
 /**
  * RegExp for RFC 5234 CTL characters (US-ASCII 0-31 and 127).
