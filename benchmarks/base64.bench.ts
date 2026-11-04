@@ -1,4 +1,4 @@
-import { bench, describe } from 'vitest';
+import { describe, test } from 'vitest';
 
 type Uint8ArrayWithBase64 = typeof Uint8Array & {
   fromBase64?: (str: string) => Uint8Array;
@@ -79,22 +79,28 @@ for (const payload of payloads) {
 describe('decode base64 for basic-auth payloads', () => {
   for (const payload of payloads) {
     describe(payload.name, () => {
-      bench.skipIf(!hasUint8ArrayFromBase64)(
+      test.skipIf(!hasUint8ArrayFromBase64)(
         'Uint8Array.fromBase64 + TextDecoder',
-        () => {
-          decodeBase64WithUint8Array(payload.encoded);
+        async ({ bench }) => {
+          await bench('Uint8Array.fromBase64 + TextDecoder', () => {
+            decodeBase64WithUint8Array(payload.encoded);
+          }).run();
         },
       );
 
-      bench.skipIf(!hasNodeBuffer)(
+      test.skipIf(!hasNodeBuffer)(
         'Buffer.from(base64).toString(utf-8)',
-        () => {
-          decodeBase64WithNodeBuffer(payload.encoded);
+        async ({ bench }) => {
+          await bench('Buffer.from(base64).toString(utf-8)', () => {
+            decodeBase64WithNodeBuffer(payload.encoded);
+          }).run();
         },
       );
 
-      bench('atob + Uint8Array.from + TextDecoder', () => {
-        decodeBase64WithAtob(payload.encoded);
+      test('atob + Uint8Array.from + TextDecoder', async ({ bench }) => {
+        await bench('atob + Uint8Array.from + TextDecoder', () => {
+          decodeBase64WithAtob(payload.encoded);
+        }).run();
       });
     });
   }

@@ -1,24 +1,32 @@
-import { describe, bench } from 'vitest';
+import { describe, test } from 'vitest';
 import { parse } from './index.js';
 
 describe('parse', () => {
-  bench('basic auth header', () => {
-    const header = 'Basic dGVzdDpwYXNzd29yZA=='; // "test:password" in base64
-    parse(header);
+  test('basic auth header', async ({ bench }) => {
+    await bench('basic auth header', () => {
+      const header = 'Basic dGVzdDpwYXNzd29yZA=='; // "test:password" in base64
+      parse(header);
+    }).run();
   });
 
-  bench('basic auth header with extra whitespace', () => {
-    const header = '   Basic   dGVzdDpwYXNzd29yZA==   '; // "test:password" in base64 with extra whitespace
-    parse(header);
+  test('basic auth header with extra whitespace', async ({ bench }) => {
+    await bench('basic auth header with extra whitespace', () => {
+      const header = '   Basic   dGVzdDpwYXNzd29yZA==   '; // "test:password" in base64 with extra whitespace
+      parse(header);
+    }).run();
   });
 
-  bench('invalid basic auth header', () => {
-    const header = 'Basic invalidbase64'; // Invalid base64 string
-    parse(header);
+  test('invalid basic auth header', async ({ bench }) => {
+    await bench('invalid basic auth header', () => {
+      const header = 'Basic invalidbase64'; // Invalid base64 string
+      parse(header);
+    }).run();
   });
 
-  bench('non-basic auth header', () => {
-    const header = 'Bearer sometoken'; // Not a basic auth header
-    parse(header);
+  test('non-basic auth header', async ({ bench }) => {
+    await bench('non-basic auth header', () => {
+      const header = 'Bearer sometoken'; // Not a basic auth header
+      parse(header);
+    }).run();
   });
 });
