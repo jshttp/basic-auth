@@ -7,6 +7,7 @@
  */
 
 import { base64 } from './base64.js';
+import { parseBasic } from './utils.js';
 
 /**
  * Object to represent user credentials.
@@ -29,12 +30,11 @@ export function parse(string: string): Credentials | undefined {
     throw new TypeError('Expected a string');
   }
 
-  // parse header
-  const match = CREDENTIALS_REGEXP.exec(string);
-  if (!match) return undefined;
+  const encoded = parseBasic(string);
+  if (encoded === undefined) return undefined;
 
   // decode user pass
-  const userPass = base64.decode(match[1]);
+  const userPass = base64.decode(encoded);
   const colonIndex = userPass.indexOf(':');
   if (colonIndex === -1) return undefined;
 
@@ -78,18 +78,6 @@ export function format(credentials: Credentials): string {
 
   return 'Basic ' + base64.encode(str);
 }
-
-/**
- * RegExp for basic auth credentials
- *
- * credentials = auth-scheme 1*SP token68
- * auth-scheme = "Basic" ; case insensitive
- * token68     = 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"="
- * @private
- */
-
-const CREDENTIALS_REGEXP =
-  /^ *(?:[Bb][Aa][Ss][Ii][Cc]) +([A-Za-z0-9._~+/-]+=*) *$/;
 
 /**
  * RegExp for RFC 5234 CTL characters (US-ASCII 0-31 and 127).
